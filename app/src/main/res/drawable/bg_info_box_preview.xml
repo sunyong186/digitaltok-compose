@@ -1,0 +1,7 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#1A3BADFF"/> <!-- 10% 투명도 -->
+    <stroke
+        android:width="1dp"
+        android:color="#36ABFF"/>
+    <corners android:radius="6dp"/>
+</shape>

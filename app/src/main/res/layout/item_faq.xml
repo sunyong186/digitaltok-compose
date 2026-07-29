@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/itemRoot"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <!--  위 구분선 (펼쳤을 때만) -->
+    <View
+        android:id="@+id/dividerTop"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/defult_gray"
+        android:visibility="gone"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@id/tvQuestion"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Q 라벨 -->
+    <TextView
+        android:id="@+id/tvQLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:text="Q."
+        android:layout_marginTop="16dp"
+        android:textStyle="bold"
+        android:textSize="14sp"
+        android:fontFamily="@font/pretendard_semibold"
+        android:textColor="@color/text_black"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <!-- 질문 -->
+    <TextView
+        android:id="@+id/tvQuestion"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:text="디링은 어떻게 사용하나요?"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="@color/text_black"
+        android:fontFamily="@font/pretendard_semibold"
+        app:layout_constraintStart_toEndOf="@id/tvQLabel"
+        app:layout_constraintTop_toTopOf="@id/tvQLabel"
+        app:layout_constraintEnd_toStartOf="@id/ivChevron"/>
+
+    <!-- 화살표 -->
+    <ImageView
+        android:id="@+id/ivChevron"
+        android:layout_width="12dp"
+        android:layout_height="6dp"
+        android:layout_marginEnd="12dp"
+        android:src="@drawable/vector_2"
+        android:contentDescription="@null"
+        app:tint="@color/text_gray_2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvQuestion"
+        app:layout_constraintBottom_toBottomOf="@id/tvQuestion"/>
+
+    <!-- 접힘 상태에서 divider 위치(질문 아래 16dp) 보장용 스페이서 -->
+    <View
+        android:id="@+id/spacer16"
+        android:layout_width="0dp"
+        android:layout_height="16dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintTop_toBottomOf="@id/tvQuestion"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- 답변 박스(펼쳤을 때만) -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/answerContainer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:background="@color/gray_box"
+        android:paddingStart="26dp"
+        android:paddingEnd="26dp"
+        android:paddingTop="14dp"
+        android:paddingBottom="14dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/tvQuestion"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:id="@+id/tvAnswer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="앱에서 이미지나 템플릿을 선택한 후 NFC로..."
+            android:textSize="12sp"
+            android:lineHeight="18sp"
+            android:fontFamily="@font/pretendard_medium"
+            android:textColor="@color/text_gray_2"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barDividerAnchor"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:barrierDirection="bottom"
+        app:barrierAllowsGoneWidgets="true"
+        app:constraint_referenced_ids="spacer16,answerContainer" />
+
+
+    <!-- 아래 구분선 -->
+    <View
+        android:id="@+id/dividerBottom"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/defult_gray"
+        app:layout_constraintTop_toBottomOf="@id/barDividerAnchor"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

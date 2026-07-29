@@ -1,0 +1,37 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="71dp"
+    android:height="71dp"
+    android:viewportWidth="71"
+    android:viewportHeight="71">
+
+    <!-- 1. 바깥 원 (테두리) -->
+    <!-- stroke 두께(6)를 고려하여 path를 수정 (반지름 35.5 - 3 = 32.5) -->
+    <path
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="@color/Main_100"
+        android:strokeWidth="6"
+        android:pathData="M 35.5, 3 a 32.5,32.5 0 1,1 0,65 a 32.5,32.5 0 1,1 0,-65" />
+
+    <!-- 2. 안쪽 아이콘 (위치와 크기 변환) -->
+    <!-- 24x24 기준의 아이콘을 71x71 뷰포트 중앙 27x27 영역에 맞게 변환합니다. -->
+    <group
+        android:translateX="22"
+        android:translateY="22"
+        android:scaleX="1.125"
+        android:scaleY="1.125">
+
+        <path
+            android:strokeColor="@color/Main_100"
+            android:strokeWidth="2.5"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round"
+            android:pathData="M12,3 L12,15 M7,8 L12,3 L17,8"/>
+        <path
+            android:strokeColor="@color/Main_100"
+            android:strokeWidth="2.5"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round"
+            android:pathData="M20,14v5c0,1.1 -0.9,2 -2,2H6c-1.1,0 -2,-0.9 -2,-2v-5"/>
+    </group>
+
+</vector>

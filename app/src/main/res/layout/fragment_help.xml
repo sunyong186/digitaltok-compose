@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F4F4F4">
+
+    <!-- Top App Bar -->
+    <include
+        android:id="@+id/connectTopAppBar"
+        layout="@layout/common_top_app_bar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- 섹션 1) 프로필 -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bannerProfile"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingTop="17dp"
+        android:paddingStart="18dp"
+        android:paddingEnd="18dp"
+        android:paddingBottom="17dp"
+        android:background="@drawable/bg_setting_profile_card"
+        app:layout_constraintTop_toBottomOf="@id/connectTopAppBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:id="@+id/ivProfile"
+            android:layout_width="77dp"
+            android:layout_height="77dp"
+            android:paddingStart="4dp"
+            android:src="@drawable/rectangle"
+            android:contentDescription="@null"
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/ivPeople"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:src="@drawable/vector"
+            android:contentDescription="@null"
+            android:scaleType="centerCrop"
+            app:layout_constraintTop_toTopOf="@id/ivProfile"
+            app:layout_constraintStart_toStartOf="@id/ivProfile"
+            app:layout_constraintEnd_toEndOf="@id/ivProfile"
+            app:layout_constraintBottom_toBottomOf="@id/ivProfile"/>
+
+        <TextView
+            android:id="@+id/tvUserName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="26dp"
+            android:text="정재원님"
+            android:textColor="@color/text_black"
+            android:textSize="18sp"
+            android:fontFamily="@font/pretendard_semibold"
+            android:layout_marginTop="21dp"
+            app:layout_constraintStart_toEndOf="@id/ivProfile"
+            app:layout_constraintTop_toTopOf="@id/ivProfile"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/tvUserEmail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="26dp"
+            android:text="jaewon12@gmail.com"
+            android:textStyle="normal"
+            android:textColor="@color/text_gray_2"
+            android:textSize="12sp"
+            android:fontFamily="@font/pretendard_medium"
+            app:layout_constraintStart_toEndOf="@id/ivProfile"
+            app:layout_constraintTop_toBottomOf="@id/tvUserName"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/btnEditProfile"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="18dp"
+            android:background="@drawable/bg_profile_edit_button"
+            android:gravity="center"
+            android:text="프로필 편집"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:fontFamily="@font/pretendard_medium"
+            app:layout_constraintTop_toBottomOf="@id/ivProfile"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- 섹션 2) 도움말 -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/helpSection"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingTop="28dp"
+        android:paddingStart="18dp"
+        android:paddingEnd="18dp"
+        android:paddingBottom="28dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@id/bannerProfile"
+        android:background="@drawable/bg_setting_profile_card"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:id="@+id/tvSectionTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="도움말"
+            android:textSize="14sp"
+            android:fontFamily="@font/pretendard_semibold"
+            android:textColor="@color/text_gray_3"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- 메뉴 카드 (자주 묻는 질문 / 고객 지원) -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cardMenu"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            app:layout_constraintTop_toBottomOf="@id/tvSectionTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <!-- Row 1 : 자주 묻는 질문 -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/rowFaq"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <TextView
+                    android:id="@+id/tvFaq"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="자주 묻는 질문"
+                    android:textSize="14sp"
+                    android:textColor="@color/text_gray_1"
+                    android:fontFamily="@font/pretendard_medium"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/tvFaqArrow" />
+
+                <!-- Color 들여오고 arrow 두께 설정 해야 함!! -->
+                <ImageView
+                    android:id="@+id/tvFaqArrow"
+                    android:layout_width="7dp"
+                    android:layout_height="14dp"
+                    android:src="@drawable/vector_1"
+                    android:textSize="18sp"
+                    app:tint="@color/text_gray_1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Row 2 : 고객 지원 -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/rowSupport"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:layout_constraintTop_toBottomOf="@id/rowFaq"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <TextView
+                    android:id="@+id/tvSupport"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="고객 지원"
+                    android:textSize="14sp"
+                    android:textColor="@color/text_gray_1"
+                    android:fontFamily="@font/pretendard_medium"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/tvSupportArrow" />
+
+                <!-- Color 들여오고 arrow 두께 설정 해야 함!! -->
+                <ImageView
+                    android:id="@+id/tvSupportArrow"
+                    android:layout_width="7dp"
+                    android:layout_height="14dp"
+                    android:src="@drawable/vector_1"
+                    android:textSize="18sp"
+                    app:tint="@color/text_gray_1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- 섹션 3) 정보 -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/infoSection"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:paddingStart="18dp"
+        android:paddingEnd="18dp"
+        android:paddingTop="28dp"
+        android:paddingBottom="28dp"
+        app:layout_constraintTop_toBottomOf="@id/helpSection"
+        android:background="@drawable/bg_setting_profile_card"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:id="@+id/tvImformation"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="정보"
+            android:textSize="14sp"
+            android:fontFamily="@font/pretendard_semibold"
+            android:textColor="@color/gray1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/boxVersion"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            app:layout_constraintTop_toBottomOf="@id/tvImformation"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView
+                android:id="@+id/tvDiRing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="앱 버전"
+                android:textSize="14sp"
+                android:textColor="@color/text_gray_1"
+                android:fontFamily="@font/pretendard_medium"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+            <TextView
+                android:id="@+id/tvVersion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DT v 1.12.6"
+                android:textSize="14sp"
+                android:textColor="@color/gray1"
+                android:fontFamily="@font/pretendard_regular"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

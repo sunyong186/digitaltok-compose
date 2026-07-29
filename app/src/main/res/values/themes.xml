@@ -1,0 +1,13 @@
+<resources>
+
+    <style name="Theme.DigitalTok" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:fontFamily">@font/pretendard_regular</item>
+    </style>
+
+    <!-- 앱 실행 직후 뜨는 Splash 전용 테마 -->
+    <style name="Theme.DigitalTok.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@android:color/white</item>
+        <item name="postSplashScreenTheme">@style/Theme.DigitalTok</item>
+    </style>
+
+</resources>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- 선택된 상태: 테두리 있음 -->
+    <item
+        android:state_checked="true"
+        android:color="#D9D9D9"/>
+
+    <!-- 선택 안 됨: 테두리 없음(투명) -->
+    <item
+        android:color="@android:color/transparent"/>
+
+</selector>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppBottomSheetTheme" parent="ThemeOverlay.Material3.BottomSheetDialog">
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.55</item>
+    </style>
+    <style name="HintSmallStyle">
+        <item name="android:textSize">11sp</item>
+    </style>
+    <style name="ThemeOverlay.DigitalTok.CursorBlack" parent="">
+        <item name="colorControlActivated">@color/text_gray_3</item>
+        <item name="colorPrimary">@color/text_gray_3</item>
+        <item name="android:textCursorDrawable">@drawable/cursor_black</item>
+    </style>
+
+</resources>
+

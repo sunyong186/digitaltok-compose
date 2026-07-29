@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:gravity="center_horizontal"
+    android:background="@drawable/bg_dialog_card_white">
+
+    <ImageView
+        android:layout_width="71dp"
+        android:layout_height="71dp"
+        android:src="@drawable/ic_blue_check_circle"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="전송 완료"
+        android:textSize="22sp"
+        android:textColor="@color/text_black"
+        android:fontFamily="@font/pretendard_semibold"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/text_gray_2"
+        android:text="성공적으로 이미지가 전송되었습니다"
+        android:fontFamily="@font/pretendard_regular"/>
+
+</LinearLayout>

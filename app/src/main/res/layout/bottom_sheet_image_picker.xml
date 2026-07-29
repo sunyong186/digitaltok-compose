@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/sheetRoot"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@android:color/transparent">
+
+        <!-- 위 2개: 흰 카드 -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardActions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="18dp"
+            app:cardCornerRadius="6dp"
+            app:cardElevation="0dp"
+            app:cardUseCompatPadding="false"
+            app:cardBackgroundColor="@color/white">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="18dp"
+                android:paddingBottom="18dp">
+
+                <TextView
+                    android:id="@+id/tvCamera"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="카메라로 사진찍기"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:textColor="@color/Main_100"
+                    android:textSize="16sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginVertical="18dp"
+                    android:background="@color/defult_gray" />
+
+                <TextView
+                    android:id="@+id/tvGallery"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="갤러리에서 가져오기"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:textColor="@color/Main_100"
+                    android:textSize="16sp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- 파란 버튼 영역 -->
+        <FrameLayout
+            android:id="@+id/cancelContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/transparent">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnCancel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="19dp"
+                android:layout_marginEnd="17dp"
+                android:padding="16dp"
+                android:text="돌아가기"
+                android:fontFamily="@font/pretendard_medium"
+                android:textAllCaps="false"
+                android:textSize="16sp"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/Main_100"
+                app:cornerRadius="4dp"
+                app:elevation="0dp"
+                android:stateListAnimator="@null"
+                android:insetLeft="0dp"
+                android:insetRight="0dp"
+                android:insetTop="0dp"
+                android:insetBottom="0dp" />
+        </FrameLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

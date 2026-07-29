@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:gravity="center_horizontal"
+    android:background="@drawable/bg_dialog_card_white">
+
+    <ImageView
+        android:layout_width="71dp"
+        android:layout_height="71dp"
+        android:src="@drawable/ic_x_circle"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="전송 실패"
+        android:textSize="22sp"
+        android:textColor="@color/Error"
+        android:fontFamily="@font/pretendard_semibold"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="이미지 전송에 실패했습니다"
+        android:fontFamily="@font/pretendard_regular"
+        android:textColor="@color/text_gray_2"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/bg_withdraw_warning_box"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="16dp">
+
+        <ImageView
+            android:id="@+id/resolutionIcon"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:src="@drawable/ic_red_alert_circle"
+            app:layout_constraintBottom_toBottomOf="@+id/resolutionTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/resolutionTitle" />
+
+        <TextView
+            android:id="@+id/resolutionTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="해결 방법"
+            android:textColor="@color/Error"
+            android:textSize="16sp"
+            android:fontFamily="@font/pretendard_semibold"
+            app:layout_constraintStart_toEndOf="@+id/resolutionIcon"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/resolutionStep1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="•  핸드폰 뒷면에 장치를 밀착시켜 주세요"
+            android:fontFamily="@font/pretendard_semibold"
+            android:textColor="@color/Error"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/resolutionTitle" />
+
+        <TextView
+            android:id="@+id/resolutionStep2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="•  네트워크 연결을 확인해주세요"
+            android:fontFamily="@font/pretendard_semibold"
+            android:textColor="@color/Error"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/resolutionStep1" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnRetry"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/bg_main_card"
+        android:fontFamily="@font/pretendard_medium"
+        android:text="다시 시도"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:stateListAnimator="@null" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnSupport"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/bg_gray_card"
+        android:text="고객 지원 문의하기"
+        android:fontFamily="@font/pretendard_medium"
+        android:textColor="@color/text_gray_2"
+        android:textSize="16sp"
+        android:stateListAnimator="@null" />
+
+</LinearLayout>
