@@ -24,5 +24,5 @@
 - **Phase 4:** 설정 화면 및 불필요한 레거시(XML/Fragment) 코드 완전 제거
 
 ## 💡 레거시(원래 코드)와의 차이점
-- 원본 팀 프로젝트 보러가기: [https://github.com/DigitalTok/digitaltok-android]
+- 원본 팀 프로젝트: [https://github.com/DigitalTok/digitaltok-android]
 - 본 레포지토리는 원본 코드를 포크(또는 복사)하여 **UI/UX 계층의 모던화** 및 **아키텍처 개선**에 온전히 집중한 개인 작업물입니다.
