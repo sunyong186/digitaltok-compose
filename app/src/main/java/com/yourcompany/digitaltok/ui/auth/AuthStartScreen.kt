@@ -33,6 +33,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+import androidx.compose.ui.tooling.preview.Preview
+
+@Preview(showBackground = true, backgroundColor = 0xFFFFFFFF)
+@Composable
+fun PreviewAuthStartScreen() {
+    AuthStartScreen()
+}
+
 @Composable
 fun AuthStartScreen(
     modifier: Modifier = Modifier,

@@ -31,6 +31,14 @@ import com.yourcompany.digitaltok.R
 import kotlinx.coroutines.launch
 import kotlin.math.abs
 
+import androidx.compose.ui.tooling.preview.Preview
+
+@Preview(showBackground = true, backgroundColor = 0xFFFFFFFF)
+@Composable
+fun PreviewOnboardingScreen() {
+    OnboardingScreen()
+}
+
 @Composable
 fun OnboardingScreen(
     modifier: Modifier = Modifier,
