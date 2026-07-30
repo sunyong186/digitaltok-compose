@@ -18,9 +18,9 @@ class ImageRepository {
             ImageUploadResult(
                 image = ImageDetails(
                     imageId = 1,
-                    originalUrl = "https://picsum.photos/200",
-                    previewUrl = "https://picsum.photos/200",
-                    einkDataUrl = "https://picsum.photos/200",
+                    originalUrl = "android.resource://com.yourcompany.digitaltok/drawable/jongno3",
+                    previewUrl = "android.resource://com.yourcompany.digitaltok/drawable/jongno3",
+                    einkDataUrl = "android.resource://com.yourcompany.digitaltok/drawable/jongno3",
                     category = "USER_UPLOAD",
                     imageName = imageName,
                     createdAt = "2024-01-01",
@@ -50,8 +50,8 @@ class ImageRepository {
             RecentImagesResponse(
                 count = 2,
                 items = listOf(
-                    RecentImage(1, "https://picsum.photos/200", "테스트 이미지 1", false, "2024-01-01"),
-                    RecentImage(2, "https://picsum.photos/200", "테스트 이미지 2", true, "2024-01-02")
+                    RecentImage(1, "android.resource://com.yourcompany.digitaltok/drawable/jongno3", "종로3가 이미지 1", false, "2024-01-01"),
+                    RecentImage(2, "android.resource://com.yourcompany.digitaltok/drawable/jongno3", "종로3가 이미지 2", true, "2024-01-02")
                 )
             )
         )
@@ -59,7 +59,7 @@ class ImageRepository {
 
     suspend fun getImagePreview(imageId: Int): Result<ImagePreview> {
         kotlinx.coroutines.delay(500)
-        return Result.success(ImagePreview(imageId = imageId, previewUrl = "https://picsum.photos/200", updatedAt = "2024-01-01"))
+        return Result.success(ImagePreview(imageId = imageId, previewUrl = "android.resource://com.yourcompany.digitaltok/drawable/jongno3", updatedAt = "2024-01-01"))
     }
 
     suspend fun getImageBinaryInfo(imageId: Int): Result<ImageBinaryInfo> {
@@ -67,7 +67,7 @@ class ImageRepository {
         return Result.success(
             ImageBinaryInfo(
                 imageId = imageId,
-                einkDataUrl = "https://picsum.photos/200",
+                einkDataUrl = "android.resource://com.yourcompany.digitaltok/drawable/jongno3",
                 lastUsedAt = "2024-01-01",
                 meta = ImageMeta(
                     width = 250,
