@@ -49,18 +49,17 @@ class DeviceConnectFragment : Fragment() {
         val nfcManager = context?.getSystemService(Context.NFC_SERVICE) as? NfcManager
         val nfcAdapter = nfcManager?.defaultAdapter
 
-        if (nfcAdapter != null) {
-            if (!nfcAdapter.isEnabled) {
-                NfcDisabledFragment().show(parentFragmentManager, "NfcDisabledDialog")
-            } else {
-                // "연결 시작" 누르면 -> 홈에서 '연결 안됨' 화면 보이게
-                mainViewModel.setDeviceConnected(false)
+        // Emulator has no NFC adapter (nfcAdapter == null)
+        if (nfcAdapter != null && !nfcAdapter.isEnabled) {
+            NfcDisabledFragment().show(parentFragmentManager, "NfcDisabledDialog")
+        } else {
+            // "연결 시작" 누르면 -> 홈에서 '연결 안됨' 화면 보이게
+            mainViewModel.setDeviceConnected(false)
 
-                parentFragmentManager.beginTransaction()
-                    .replace((requireView().parent as ViewGroup).id, DeviceSearchingFragment())
-                    .addToBackStack(null)
-                    .commit()
-            }
+            parentFragmentManager.beginTransaction()
+                .replace((requireView().parent as ViewGroup).id, DeviceSearchingFragment())
+                .addToBackStack(null)
+                .commit()
         }
     }
 

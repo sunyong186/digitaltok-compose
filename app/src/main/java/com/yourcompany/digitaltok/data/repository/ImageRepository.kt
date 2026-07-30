@@ -13,97 +13,74 @@ class ImageRepository {
         imageName: String,
         imageFile: MultipartBody.Part
     ): Result<ImageUploadResult> {
-        return try {
-            val response = apiService.uploadImage(imageName, imageFile)
-
-            if (response.isSuccessful) {
-                val apiResponse = response.body()
-                if (apiResponse != null && apiResponse.isSuccess) {
-                    apiResponse.result?.let {
-                        Result.success(it)
-                    } ?: Result.failure(Exception("API success but result data is missing."))
-                } else {
-                    Result.failure(Exception(apiResponse?.message ?: "Unknown API error"))
-                }
-            } else {
-                Result.failure(Exception("Upload failed: ${response.message()}"))
-            }
-        } catch (e: Exception) {
-            Result.failure(e)
-        }
+        kotlinx.coroutines.delay(500)
+        return Result.success(
+            ImageUploadResult(
+                image = ImageDetails(
+                    imageId = 1,
+                    originalUrl = "android.resource://com.yourcompany.digitaltok/drawable/jongno3",
+                    previewUrl = "android.resource://com.yourcompany.digitaltok/drawable/jongno3",
+                    einkDataUrl = "android.resource://com.yourcompany.digitaltok/drawable/jongno3",
+                    category = "USER_UPLOAD",
+                    imageName = imageName,
+                    createdAt = "2024-01-01",
+                    deletedAt = null,
+                    subwayTemplateId = 0
+                ),
+                imageMapping = ImageMapping(
+                    userImageId = 1,
+                    userId = 1,
+                    imageId = 1,
+                    isFavorite = false,
+                    savedAt = "2024-01-01",
+                    lastUsedAt = "2024-01-01"
+                )
+            )
+        )
     }
 
     suspend fun updateFavoriteStatus(imageId: String, isFavorite: Boolean): Result<Unit> {
-        return try {
-            val response = apiService.updateFavoriteStatus(imageId, mapOf("isFavorite" to isFavorite))
-            if (response.isSuccessful && response.body()?.isSuccess == true) {
-                Result.success(Unit)
-            } else {
-                Result.failure(Exception(response.body()?.message ?: "Unknown error"))
-            }
-        } catch (e: Exception) {
-            Result.failure(e)
-        }
+        kotlinx.coroutines.delay(500)
+        return Result.success(Unit)
     }
 
     suspend fun getRecentImages(): Result<RecentImagesResponse> {
-        return try {
-            val response = apiService.getRecentImages()
-            if (response.isSuccessful) {
-                val apiResponse = response.body()
-                if (apiResponse != null && apiResponse.isSuccess) {
-                    apiResponse.result?.let {
-                        Result.success(it)
-                    } ?: Result.failure(Exception("API success but result data is missing."))
-                } else {
-                    Result.failure(Exception(apiResponse?.message ?: "Unknown API error"))
-                }
-            } else {
-                Result.failure(Exception("Failed to fetch recent images: ${response.message()}"))
-            }
-        } catch (e: Exception) {
-            Result.failure(e)
-        }
+        kotlinx.coroutines.delay(500)
+        return Result.success(
+            RecentImagesResponse(
+                count = 2,
+                items = listOf(
+                    RecentImage(1, "android.resource://com.yourcompany.digitaltok/drawable/jongno3", "종로3가 이미지 1", false, "2024-01-01"),
+                    RecentImage(2, "android.resource://com.yourcompany.digitaltok/drawable/jongno3", "종로3가 이미지 2", true, "2024-01-02")
+                )
+            )
+        )
     }
 
     suspend fun getImagePreview(imageId: Int): Result<ImagePreview> {
-        return try {
-            val response = apiService.getImagePreview(imageId)
-            if (response.isSuccessful) {
-                val apiResponse = response.body()
-                if (apiResponse != null && apiResponse.isSuccess) {
-                    apiResponse.result?.let {
-                        Result.success(it)
-                    } ?: Result.failure(Exception("API success but result data is missing for preview."))
-                } else {
-                    Result.failure(Exception(apiResponse?.message ?: "Unknown API error getting preview."))
-                }
-            } else {
-                Result.failure(Exception("Failed to fetch image preview: ${response.message()}"))
-            }
-        } catch (e: Exception) {
-            Result.failure(e)
-        }
+        kotlinx.coroutines.delay(500)
+        return Result.success(ImagePreview(imageId = imageId, previewUrl = "android.resource://com.yourcompany.digitaltok/drawable/jongno3", updatedAt = "2024-01-01"))
     }
 
     suspend fun getImageBinaryInfo(imageId: Int): Result<ImageBinaryInfo> {
-        return try {
-            val response = apiService.getImageBinaryInfo(imageId)
-            if (response.isSuccessful) {
-                val apiResponse = response.body()
-                if (apiResponse != null && apiResponse.isSuccess) {
-                    apiResponse.result?.let {
-                        Result.success(it)
-                    } ?: Result.failure(Exception("API success but result data is missing for binary info."))
-                } else {
-                    Result.failure(Exception(apiResponse?.message ?: "Unknown API error getting binary info."))
-                }
-            } else {
-                Result.failure(Exception("Failed to fetch image binary info: ${response.message()}"))
-            }
-        } catch (e: Exception) {
-            Result.failure(e)
-        }
+        kotlinx.coroutines.delay(500)
+        return Result.success(
+            ImageBinaryInfo(
+                imageId = imageId,
+                einkDataUrl = "android.resource://com.yourcompany.digitaltok/drawable/jongno3",
+                lastUsedAt = "2024-01-01",
+                meta = ImageMeta(
+                    width = 250,
+                    height = 122,
+                    bpp = 1,
+                    palette = "BW",
+                    packing = "LSB",
+                    scan = "HORIZONTAL",
+                    payloadBytes = 4000,
+                    hasHeader = true
+                )
+            )
+        )
     }
 
     suspend fun downloadImageBinary(url: String): Result<ResponseBody> {

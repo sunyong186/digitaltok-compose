@@ -155,6 +155,12 @@ private fun HomeTab(mainViewModel: MainViewModel, navController: NavHostControll
     }
 }
 
+@Preview(showBackground = true, backgroundColor = 0xFFFFFFFF)
+@Composable
+fun PreviewHomeNoConnection() {
+    HomeNoConnection()
+}
+
 @Composable
 private fun HomeNoConnection() {
     Box(
@@ -231,14 +237,24 @@ private fun HomeNoConnection() {
 }
 
 
+@Preview(showBackground = true, backgroundColor = 0xFFFFFFFF)
+@Composable
+fun PreviewHomeConnected() {
+    HomeConnected(lastImageUrl = "https://picsum.photos/200", onNavigateToDecorate = {})
+}
+
 @Composable
 private fun HomeConnected(mainViewModel: MainViewModel, navController: NavController) {
     val lastImageUrl by mainViewModel.lastTransferredImageUrl.observeAsState()
 
-    val navigateToDecorate = {
-        navController.navigate("decorate")
-    }
+    HomeConnected(
+        lastImageUrl = lastImageUrl,
+        onNavigateToDecorate = { navController.navigate("decorate") }
+    )
+}
 
+@Composable
+private fun HomeConnected(lastImageUrl: String?, onNavigateToDecorate: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -258,8 +274,6 @@ private fun HomeConnected(mainViewModel: MainViewModel, navController: NavContro
         Box(
             modifier = Modifier.fillMaxWidth().padding(top = 150.dp),
             contentAlignment = Alignment.TopCenter
-
-
         ) {
             Box(
                 modifier = Modifier
@@ -267,7 +281,7 @@ private fun HomeConnected(mainViewModel: MainViewModel, navController: NavContro
                     .size(288.dp)
                     .background(Color.White, RoundedCornerShape(12.dp))
                     .padding(12.dp)
-                    .clickable { navigateToDecorate() },
+                    .clickable { onNavigateToDecorate() },
                 contentAlignment = Alignment.Center
             ) {
                 Box(
@@ -299,7 +313,7 @@ private fun HomeConnected(mainViewModel: MainViewModel, navController: NavContro
             ),
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
-                .clickable { navigateToDecorate() }
+                .clickable { onNavigateToDecorate() }
         )
     }
 }

@@ -463,7 +463,7 @@ class DecorateFragment : Fragment() {
                 is DecorateViewModel.PriorityTemplateDetailUiState.Loading -> { /* 로딩 표시 */ }
                 is DecorateViewModel.PriorityTemplateDetailUiState.Success -> {
                     val detail = state.templateDetail
-                    parentFragmentManager.beginTransaction().add((requireView().parent as ViewGroup).id, TemplatePreviewFragment.newInstance(name = detail.priorityType, imageUrl = detail.templateImageUrl, dataUrl = detail.templateDataUrl)).addToBackStack(null).commit()
+                    parentFragmentManager.beginTransaction().replace((requireView().parent as ViewGroup).id, TemplatePreviewFragment.newInstance(name = detail.priorityType, imageUrl = detail.templateImageUrl, dataUrl = detail.templateDataUrl)).addToBackStack(null).commit()
                 }
                 is DecorateViewModel.PriorityTemplateDetailUiState.Error -> Toast.makeText(requireContext(), state.message, Toast.LENGTH_SHORT).show()
             }
@@ -503,7 +503,7 @@ class DecorateFragment : Fragment() {
                 is DecorateViewModel.SubwayTemplateDetailUiState.Success -> {
                     val detail = state.templateDetail
                     parentFragmentManager.beginTransaction()
-                        .add(
+                        .replace(
                             (requireView().parent as ViewGroup).id,
                             TemplatePreviewFragment.newInstance(
                                 name = detail.stationName,
@@ -586,7 +586,10 @@ class DecorateFragment : Fragment() {
         }
         Log.d("PREVIEW_DEBUG", "imageId=$imageId")
         Log.d("PREVIEW_DEBUG", "previewUrl=$previewUrl")
-        parentFragmentManager.beginTransaction().add((requireView().parent as ViewGroup).id, ImagePreviewFragment.newInstance(imageId, previewUrl)).addToBackStack(null).commit()
+        parentFragmentManager.beginTransaction()
+            .replace((requireView().parent as ViewGroup).id, ImagePreviewFragment.newInstance(imageId, previewUrl))
+            .addToBackStack(null)
+            .commit()
     }
 
     private fun uriToFile(uri: Uri): File? {

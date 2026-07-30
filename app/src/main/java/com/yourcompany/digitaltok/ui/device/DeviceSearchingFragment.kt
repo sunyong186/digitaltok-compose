@@ -75,6 +75,15 @@ class DeviceSearchingFragment : Fragment() {
         binding.searchingTopAppbar.backButton.setOnClickListener {
             activity?.onBackPressedDispatcher?.onBackPressed()
         }
+        
+        // Mock NFC tagging for emulator testing: Click anywhere to simulate NFC tag
+        binding.root.setOnClickListener {
+            Toast.makeText(requireContext(), "NFC 태그 시뮬레이션 중...", Toast.LENGTH_SHORT).show()
+            val dummyUid = "MOCK_UID_1234"
+            detectedNfcUid = dummyUid
+            Log.d("NFC", "Mock Tag detected with UID: $dummyUid. Checking if registered.")
+            deviceViewModel.getDeviceByNfcUid(dummyUid)
+        }
     }
 
     private fun observeViewModels() {
