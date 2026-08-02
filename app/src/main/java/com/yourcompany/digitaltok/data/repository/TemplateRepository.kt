@@ -13,104 +13,79 @@ class TemplateRepository {
 
     suspend fun getPriorityTemplates(): Result<List<PriorityTemplate>> {
         kotlinx.coroutines.delay(500)
-        return Result.success(emptyList())
+        return Result.success(
+            listOf(
+                PriorityTemplate(
+                    templateId = 1,
+                    priorityType = "PREGNANT",
+                    templateImageUrl = "android.resource://com.yourcompany.digitaltok/drawable/pregnant_badge"
+                )
+            )
+        )
     }
 
-    suspend fun getPriorityTemplateDetail(templateId: Int): Result<PriorityTemplateDetail> = try {
-        val response = apiService.getPriorityTemplateDetail(templateId)
-        if (response.isSuccessful) {
-            val body = response.body()
-            if (body != null && body.isSuccess && body.result != null) {
-                Result.success(body.result)
-            } else {
-                val errorMessage = body?.message ?: "Unknown error"
-                Result.failure(Exception(errorMessage))
-            }
-        } else {
-            val errorBody = response.errorBody()?.string() ?: "Unknown HTTP error"
-            Result.failure(Exception("API Error ${response.code()}: $errorBody"))
-        }
-    } catch (e: Exception) {
-        Result.failure(e)
+    suspend fun getPriorityTemplateDetail(templateId: Int): Result<PriorityTemplateDetail> {
+        kotlinx.coroutines.delay(500)
+        return Result.success(
+            PriorityTemplateDetail(
+                templateId = templateId,
+                priorityType = "PREGNANT",
+                templateImageUrl = "android.resource://com.yourcompany.digitaltok/drawable/pregnant_badge",
+                templateDataUrl = "android.resource://com.yourcompany.digitaltok/drawable/pregnant_badge"
+            )
+        )
     }
 
     suspend fun generateSubwayTemplate(request: SubwayGenerateRequest): Result<String> {
-        return try {
-            val response = apiService.generateSubwayTemplate(request)
-            if (response.isSuccessful) {
-                val apiResponse = response.body()
-                if (apiResponse != null && apiResponse.isSuccess) {
-                    apiResponse.result?.let {
-                        Result.success(it)
-                    } ?: Result.failure(Exception("API success but result data is missing for subway template generation."))
-                } else {
-                    Result.failure(Exception(apiResponse?.message ?: "Unknown API error during subway template generation."))
-                }
-            } else {
-                Result.failure(Exception("Failed to generate subway template: ${response.message()}"))
-            }
-        } catch (e: Exception) {
-            Result.failure(e)
-        }
+        kotlinx.coroutines.delay(500)
+        return Result.success("android.resource://com.yourcompany.digitaltok/drawable/jongno3")
     }
 
     suspend fun getSubwayTemplates(): Result<SubwayTemplateResponse> {
-        return try {
-            val response = apiService.getSubwayTemplates()
-            if (response.isSuccessful) {
-                val apiResponse = response.body()
-                if (apiResponse != null && apiResponse.isSuccess) {
-                    apiResponse.result?.let {
-                        Result.success(it)
-                    } ?: Result.failure(Exception("API success but result data is missing for subway templates."))
-                } else {
-                    Result.failure(Exception(apiResponse?.message ?: "Unknown API error getting subway templates."))
-                }
-            } else {
-                Result.failure(Exception("Failed to fetch subway templates: ${response.message()}"))
-            }
-        } catch (e: Exception) {
-            Result.failure(e)
-        }
+        kotlinx.coroutines.delay(500)
+        return Result.success(
+            SubwayTemplateResponse(
+                count = 1,
+                items = listOf(
+                    com.yourcompany.digitaltok.data.model.SubwayTemplateItem(
+                        templateId = 1,
+                        stationName = "종로3가",
+                        lineName = "1호선",
+                        templateImageUrl = "android.resource://com.yourcompany.digitaltok/drawable/jongno3"
+                    )
+                )
+            )
+        )
     }
 
     suspend fun getSubwayTemplateDetail(templateId: Int): Result<SubwayTemplateDetail> {
-        return try {
-            val response = apiService.getSubwayTemplateDetail(templateId)
-            if (response.isSuccessful) {
-                val apiResponse = response.body()
-                if (apiResponse != null && apiResponse.isSuccess) {
-                    apiResponse.result?.let {
-                        Result.success(it)
-                    } ?: Result.failure(Exception("API success but result data is missing for subway template detail."))
-                } else {
-                    Result.failure(Exception(apiResponse?.message ?: "Unknown API error getting subway template detail."))
-                }
-            } else {
-                Result.failure(Exception("Failed to fetch subway template detail: ${response.message()}"))
-            }
-        } catch (e: Exception) {
-            Result.failure(e)
-        }
+        kotlinx.coroutines.delay(500)
+        return Result.success(
+            SubwayTemplateDetail(
+                templateId = templateId,
+                stationName = "종로3가",
+                stationNameEng = "Jongno 3(sam)-ga",
+                lineName = "1호선",
+                templateImageUrl = "android.resource://com.yourcompany.digitaltok/drawable/jongno3",
+                templateDataUrl = "android.resource://com.yourcompany.digitaltok/drawable/jongno3"
+            )
+        )
     }
 
     suspend fun searchSubwayTemplates(keyword: String): Result<SubwayTemplateResponse> {
-        return try {
-            val response = apiService.searchSubwayTemplates(keyword)
-            if (response.isSuccessful) {
-                val apiResponse = response.body()
-                if (apiResponse != null && apiResponse.isSuccess) {
-                    apiResponse.result?.let {
-                        Result.success(it)
-                    } ?: Result.failure(Exception("API success but result data is missing for subway search."))
-                } else {
-                    Result.failure(Exception(apiResponse?.message ?: "Unknown API error during subway search."))
-                }
-            } else {
-                Result.failure(Exception("Failed to search subway templates: ${response.message()}"))
-            }
-        } catch (e: Exception) {
-            Result.failure(e)
-        }
+        kotlinx.coroutines.delay(500)
+        return Result.success(
+            SubwayTemplateResponse(
+                count = 1,
+                items = listOf(
+                    com.yourcompany.digitaltok.data.model.SubwayTemplateItem(
+                        templateId = 1,
+                        stationName = "종로3가",
+                        lineName = "1호선",
+                        templateImageUrl = "android.resource://com.yourcompany.digitaltok/drawable/jongno3"
+                    )
+                )
+            )
+        )
     }
 }
