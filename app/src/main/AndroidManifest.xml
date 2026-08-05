@@ -29,14 +29,6 @@
 
 
 
-        <activity
-            android:name=".ui.auth.SignupActivity"
-            android:exported="false" />
-
-        <activity
-            android:name=".ui.auth.PasswordResetActivity"
-            android:exported="false" />
-
 
         <activity
             android:name=".MainActivity"

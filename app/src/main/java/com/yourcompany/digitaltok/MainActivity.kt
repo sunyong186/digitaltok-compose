@@ -32,7 +32,8 @@ import androidx.navigation.compose.rememberNavController
 import com.yourcompany.digitaltok.ui.MainUiViewModel
 import com.yourcompany.digitaltok.ui.MainViewModel
 import com.yourcompany.digitaltok.ui.auth.AuthStartScreen
-import com.yourcompany.digitaltok.ui.auth.SignupActivity
+import com.yourcompany.digitaltok.ui.auth.PasswordResetScreen
+import com.yourcompany.digitaltok.ui.auth.SignupScreen
 import com.yourcompany.digitaltok.ui.device.NfcViewModel
 import com.yourcompany.digitaltok.ui.home.HomeScreen
 import com.yourcompany.digitaltok.ui.onboarding.OnboardingPrefs
@@ -46,12 +47,7 @@ class MainActivity : AppCompatActivity() {
     private val mainViewModel: MainViewModel by viewModels()
     private val mainUiViewModel: MainUiViewModel by viewModels()
 
-    private val signupLauncher =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                // 회원가입 성공했다면, 여기서 토스트/처리 가능
-            }
-        }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
@@ -64,10 +60,7 @@ class MainActivity : AppCompatActivity() {
             DigitalTokTheme {
                 AppEntry(
                     mainViewModel = mainViewModel,
-                    mainUiViewModel = mainUiViewModel,
-                    onOpenSignUp = {
-                        signupLauncher.launch(Intent(this, SignupActivity::class.java))
-                    }
+                    mainUiViewModel = mainUiViewModel
                 )
             }
         }
@@ -92,8 +85,7 @@ class MainActivity : AppCompatActivity() {
 @Composable
 private fun AppEntry(
     mainViewModel: MainViewModel,
-    mainUiViewModel: MainUiViewModel,
-    onOpenSignUp: () -> Unit
+    mainUiViewModel: MainUiViewModel
 ) {
     var showSplash by remember { mutableStateOf(true) }
 
@@ -107,8 +99,7 @@ private fun AppEntry(
     } else {
         AppNavHost(
             mainViewModel = mainViewModel,
-            mainUiViewModel = mainUiViewModel,
-            onOpenSignUp = onOpenSignUp
+            mainUiViewModel = mainUiViewModel
         )
     }
 }
@@ -153,8 +144,7 @@ private fun SplashLanding() {
 fun AppNavHost(
     mainViewModel: MainViewModel,
     mainUiViewModel: MainUiViewModel,
-    navController: NavHostController = rememberNavController(),
-    onOpenSignUp: () -> Unit = {}
+    navController: NavHostController = rememberNavController()
 ) {
     val context = LocalContext.current
 
@@ -184,7 +174,21 @@ fun AppNavHost(
                         popUpTo("login") { inclusive = true }
                     }
                 },
-                onSignupClick = { onOpenSignUp() }
+                onSignupClick = { navController.navigate("signup") },
+                onPasswordResetClick = { navController.navigate("password_reset") }
+            )
+        }
+
+        composable("signup") {
+            SignupScreen(
+                onBackClick = { navController.popBackStack() },
+                onSignupSuccess = { navController.popBackStack() }
+            )
+        }
+
+        composable("password_reset") {
+            PasswordResetScreen(
+                onBackClick = { navController.popBackStack() }
             )
         }
 

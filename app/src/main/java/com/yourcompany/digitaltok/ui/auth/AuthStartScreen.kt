@@ -46,6 +46,7 @@ fun AuthStartScreen(
     modifier: Modifier = Modifier,
     onLoginSuccess: () -> Unit = {},
     onSignupClick: () -> Unit = {},
+    onPasswordResetClick: () -> Unit = {},
 ) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
@@ -259,9 +260,7 @@ fun AuthStartScreen(
                 interactionSource = noRippleInteraction,
                 indication = null
             ) {
-                context.startActivity(
-                    Intent(context, PasswordResetActivity::class.java)
-                )
+                onPasswordResetClick()
             }
         )
     }
