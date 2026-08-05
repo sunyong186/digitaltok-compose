@@ -10,6 +10,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.platform.ViewCompositionStrategy
+import com.yourcompany.digitaltok.ui.components.ChangeEmailDialogContent
+import com.yourcompany.digitaltok.ui.components.LogoutDialogContent
+import com.yourcompany.digitaltok.ui.components.WithdrawDialogContent
 import androidx.lifecycle.lifecycleScope
 import com.yourcompany.digitaltok.MainActivity
 import com.yourcompany.digitaltok.R
@@ -123,84 +128,83 @@ class ProfileEditFragment : Fragment() {
     }
 
     private fun showLogoutDialog() {
-        val dialogView = layoutInflater.inflate(R.layout.dialog_logout, null)
-        val dialog = androidx.appcompat.app.AlertDialog.Builder(requireContext())
-            .setView(dialogView)
-            .create()
+        val dialog = androidx.appcompat.app.AlertDialog.Builder(requireContext()).create()
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        
+        val composeView = ComposeView(requireContext()).apply {
+            setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+            setContent {
+                LogoutDialogContent(
+                    onConfirm = {
+                        dialog.dismiss()
+                        lifecycleScope.launch {
+                            Log.d("Logout", "UI CLICK -> logout confirmed")
 
-        dialogView.findViewById<View>(R.id.btnLogout).setOnClickListener {
-            dialog.dismiss()
+                            val prefs = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+                            val access = prefs.getString("accessToken", null)
+                            val refresh = prefs.getString("refreshToken", null)
+                            Log.d("Logout", "BEFORE logout prefs: accessToken=${access?.take(10)}..., refreshToken=${refresh?.take(10)}...")
 
-            lifecycleScope.launch {
-                Log.d("Logout", "UI CLICK -> logout confirmed")
+                            accountRepository.logout()
+                                .onSuccess {
+                                    Log.d("Logout", "RESPONSE -> logout SUCCESS")
+                                    Log.d("Logout", "LOCAL AUTH CLEARED (by repository)")
+                                    moveToSplash()
+                                }
+                                .onFailure { e ->
+                                    // 서버가 500이어도 "앱 로그아웃"은 진행
+                                    Log.e("Logout", "RESPONSE -> logout FAILED, but do local logout anyway", e)
 
-                val prefs = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-                val access = prefs.getString("accessToken", null)
-                val refresh = prefs.getString("refreshToken", null)
-                Log.d("Logout", "BEFORE logout prefs: accessToken=${access?.take(10)}..., refreshToken=${refresh?.take(10)}...")
+                                    runCatching { localStore.clearAuth() }
+                                        .onSuccess { Log.d("Logout", "LOCAL AUTH CLEARED (forced)") }
+                                        .onFailure { Log.e("Logout", "LOCAL AUTH CLEAR FAILED", it) }
 
-                accountRepository.logout()
-                    .onSuccess {
-                        Log.d("Logout", "RESPONSE -> logout SUCCESS")
-                        Log.d("Logout", "LOCAL AUTH CLEARED (by repository)")
-                        moveToSplash()
-                    }
-                    .onFailure { e ->
-                        // 서버가 500이어도 "앱 로그아웃"은 진행
-                        Log.e("Logout", "RESPONSE -> logout FAILED, but do local logout anyway", e)
+                                    Toast.makeText(
+                                        requireContext(),
+                                        "서버 로그아웃에 실패. 앱 로그아웃 처리.",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
 
-                        runCatching { localStore.clearAuth() }
-                            .onSuccess { Log.d("Logout", "LOCAL AUTH CLEARED (forced)") }
-                            .onFailure { Log.e("Logout", "LOCAL AUTH CLEAR FAILED", it) }
-
-                        Toast.makeText(
-                            requireContext(),
-                            "서버 로그아웃에 실패. 앱 로그아웃 처리.",
-                            Toast.LENGTH_SHORT
-                        ).show()
-
-                        moveToSplash()
-                    }
+                                    moveToSplash()
+                                }
+                        }
+                    },
+                    onDismiss = { dialog.dismiss() }
+                )
             }
         }
-
-        dialogView.findViewById<View>(R.id.btnCancel).setOnClickListener {
-            dialog.dismiss()
-        }
-
+        dialog.setView(composeView)
         dialog.show()
     }
 
     private fun showWithdrawDialog() {
-        val dialogView = layoutInflater.inflate(R.layout.dialog_withdraw, null)
-        val dialog = androidx.appcompat.app.AlertDialog.Builder(requireContext())
-            .setView(dialogView)
-            .create()
-
+        val dialog = androidx.appcompat.app.AlertDialog.Builder(requireContext()).create()
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
-
-        dialogView.findViewById<View>(R.id.btnWithdraw).setOnClickListener {
-            dialog.dismiss()
-
-            lifecycleScope.launch {
-                Log.d("Withdraw", "UI CLICK -> withdraw confirmed")
-
-                accountRepository.withdraw()
-                    .onSuccess {
-                        Log.d("Withdraw", "UI RESULT -> withdraw SUCCESS, moving to start")
-                        moveToSplash()
-                    }
-                    .onFailure { e ->
-                        Log.e("Withdraw", "UI RESULT -> withdraw FAIL", e)
-                        showError(e.message ?: "회원탈퇴 실패")
-                    }
+        
+        val composeView = ComposeView(requireContext()).apply {
+            setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+            setContent {
+                WithdrawDialogContent(
+                    onConfirm = {
+                        dialog.dismiss()
+                        lifecycleScope.launch {
+                            Log.d("Withdraw", "UI CLICK -> withdraw confirmed")
+                            accountRepository.withdraw()
+                                .onSuccess {
+                                    Log.d("Withdraw", "UI RESULT -> withdraw SUCCESS, moving to start")
+                                    moveToSplash()
+                                }
+                                .onFailure { e ->
+                                    Log.e("Withdraw", "UI RESULT -> withdraw FAIL", e)
+                                    showError(e.message ?: "회원탈퇴 실패")
+                                }
+                        }
+                    },
+                    onDismiss = { dialog.dismiss() }
+                )
             }
         }
-
-        dialogView.findViewById<View>(R.id.btnCancel).setOnClickListener {
-            dialog.dismiss()
-        }
-
+        dialog.setView(composeView)
         dialog.show()
     }
 
@@ -217,56 +221,49 @@ class ProfileEditFragment : Fragment() {
     }
 
     private fun showChangeEmailDialog() {
-        val dialogView = layoutInflater.inflate(R.layout.dialog_change_email, null)
-
-        val dialog = androidx.appcompat.app.AlertDialog.Builder(requireContext())
-            .setView(dialogView)
-            .create()
-
+        val dialog = androidx.appcompat.app.AlertDialog.Builder(requireContext()).create()
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        
+        val composeView = ComposeView(requireContext()).apply {
+            setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+            setContent {
+                ChangeEmailDialogContent(
+                    onConfirm = { password, newEmail ->
+                        if (password.isBlank()) {
+                            showError("기존 비밀번호를 입력해주세요.")
+                            return@ChangeEmailDialogContent
+                        }
+                        if (newEmail.isBlank()) {
+                            showError("새 이메일을 입력해주세요.")
+                            return@ChangeEmailDialogContent
+                        }
+                        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(newEmail).matches()) {
+                            showError("이메일 형식이 올바르지 않습니다.")
+                            return@ChangeEmailDialogContent
+                        }
 
-        val etPassword = dialogView.findViewById<android.widget.EditText>(R.id.etPassword)
-        val etNewEmail = dialogView.findViewById<android.widget.EditText>(R.id.etNewEmail)
+                        Log.d("ChangeEmail", "passwordLen=${password.length}, newEmail=$newEmail")
 
-        dialogView.findViewById<View>(R.id.btnCancel).setOnClickListener {
-            dialog.dismiss()
-        }
-
-        dialogView.findViewById<View>(R.id.btnChange).setOnClickListener {
-            val password = etPassword.text?.toString().orEmpty()
-            val newEmail = etNewEmail.text?.toString().orEmpty()
-
-            if (password.isBlank()) {
-                showError("기존 비밀번호를 입력해주세요.")
-                return@setOnClickListener
-            }
-            if (newEmail.isBlank()) {
-                showError("새 이메일을 입력해주세요.")
-                return@setOnClickListener
-            }
-            if (!android.util.Patterns.EMAIL_ADDRESS.matcher(newEmail).matches()) {
-                showError("이메일 형식이 올바르지 않습니다.")
-                return@setOnClickListener
-            }
-
-            Log.d("ChangeEmail", "passwordLen=${password.length}, newEmail=$newEmail")
-
-            lifecycleScope.launch {
-                accountRepository.changeEmail(password, newEmail)
-                    .onSuccess {
-                        Log.d("ChangeEmail", "changeEmail SUCCESS")
-                        dialog.dismiss()
-                        binding.tvEmailValue.text = newEmail
-                        Log.d("ChangeEmail", "UI set tvEmailValue=$newEmail")
-                        loadMyProfile()
-                    }
-                    .onFailure { e ->
-                        Log.e("ChangeEmail", "changeEmail FAILED", e)
-                        showError(e.message ?: "이메일 변경 실패")
-                    }
+                        lifecycleScope.launch {
+                            accountRepository.changeEmail(password, newEmail)
+                                .onSuccess {
+                                    Log.d("ChangeEmail", "changeEmail SUCCESS")
+                                    dialog.dismiss()
+                                    binding.tvEmailValue.text = newEmail
+                                    Log.d("ChangeEmail", "UI set tvEmailValue=$newEmail")
+                                    loadMyProfile()
+                                }
+                                .onFailure { e ->
+                                    Log.e("ChangeEmail", "changeEmail FAILED", e)
+                                    showError(e.message ?: "이메일 변경 실패")
+                                }
+                        }
+                    },
+                    onDismiss = { dialog.dismiss() }
+                )
             }
         }
-
+        dialog.setView(composeView)
         dialog.show()
     }
 
