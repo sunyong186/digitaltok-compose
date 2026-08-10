@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.border
 import com.yourcompany.digitaltok.data.repository.AuthRepository
+import com.yourcompany.digitaltok.ui.components.BackArrowIcon
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -66,7 +67,7 @@ fun PasswordResetScreen(
         ) {
             IconButton(onClick = onBackClick) {
                 Icon(
-                    imageVector = com.yourcompany.digitaltok.ui.components.BackArrowIcon,
+                    imageVector = BackArrowIcon,
                     contentDescription = "Back"
                 )
             }
