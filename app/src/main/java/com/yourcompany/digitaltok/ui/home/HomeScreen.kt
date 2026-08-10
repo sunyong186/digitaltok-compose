@@ -46,7 +46,7 @@ import com.yourcompany.digitaltok.ui.MainUiViewModel
 import com.yourcompany.digitaltok.ui.MainViewModel
 import com.yourcompany.digitaltok.ui.components.BottomNavBar
 import com.yourcompany.digitaltok.ui.decorate.DecorateFragment
-import com.yourcompany.digitaltok.ui.device.DeviceConnectFragment
+import com.yourcompany.digitaltok.ui.device.DeviceScreen
 import com.yourcompany.digitaltok.ui.faq.HelpFragment
 
 private object Variables {
@@ -127,7 +127,10 @@ fun HomeScreen(mainViewModel: MainViewModel, mainUiViewModel: MainUiViewModel) {
 
 
             composable("device") {
-                ComposableFragmentContainer(modifier = Modifier.fillMaxSize()) { DeviceConnectFragment() }
+                DeviceScreen(
+                    mainViewModel = mainViewModel,
+                    mainUiViewModel = mainUiViewModel
+                )
             }
 
             composable("decorate") {

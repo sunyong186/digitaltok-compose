@@ -57,4 +57,12 @@ class DeviceViewModel : ViewModel() {
             _deletionResult.postValue(result)
         }
     }
+
+    fun clearDeviceDetailsResult() {
+        _deviceDetailsResult.value = null
+    }
+
+    fun clearRegistrationResult() {
+        _registrationResult.value = null
+    }
 }
