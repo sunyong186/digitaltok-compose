@@ -77,9 +77,10 @@ fun DeviceConnectContent(
                 .fillMaxWidth()
                 .weight(1f)
                 .verticalScroll(rememberScrollState()),
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
-            Spacer(modifier = Modifier.height(73.dp))
+            Spacer(modifier = Modifier.height(30.dp))
             Image(
                 painter = painterResource(id = R.drawable.ic_phone),
                 contentDescription = null,
@@ -125,7 +126,7 @@ fun DeviceConnectContent(
                     color = Color(0xFFF7F8FA),
                     shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp)
                 )
-                .padding(horizontal = 35.dp, vertical = 50.dp)
+                .padding(horizontal = 35.dp, vertical = 30.dp)
         ) {
             Row(verticalAlignment = Alignment.Top) {
                 Image(
@@ -172,13 +173,13 @@ fun DeviceSearchingContent(
                 indication = null
             ) {
                 // Mock NFC tagging for emulator
-                onMockTag("MOCK_UID_1234")
+                onMockTag("ERROR_FAIL")
             },
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         FlowTopAppBar(title = "기기 연결", onBackClick = onBackClick)
 
-        Spacer(modifier = Modifier.height(150.dp))
+        Spacer(modifier = Modifier.weight(1f))
         
         Row(
             horizontalArrangement = Arrangement.Center,
@@ -206,6 +207,7 @@ fun DeviceSearchingContent(
             color = FlowColors.TextGray2,
             textAlign = TextAlign.Center
         )
+        Spacer(modifier = Modifier.weight(1.5f))
     }
 }
 
@@ -218,12 +220,11 @@ fun DeviceSuccessContent(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
-            .padding(horizontal = 24.dp),
+            .padding(horizontal = 24.dp)
+            .statusBarsPadding(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Spacer(modifier = Modifier.height(60.dp)) // padding from top
-
-        Spacer(modifier = Modifier.height(200.dp))
+        Spacer(modifier = Modifier.weight(1f))
         Image(
             painter = painterResource(id = R.drawable.ic_blue_check_circle),
             contentDescription = null,
@@ -264,7 +265,7 @@ fun DeviceSuccessContent(
         ) {
             Text("홈으로 돌아가기", fontSize = 16.sp, fontWeight = FontWeight.Medium, color = FlowColors.TextGray2)
         }
-        Spacer(modifier = Modifier.height(40.dp))
+        Spacer(modifier = Modifier.height(20.dp))
     }
 }
 
@@ -287,7 +288,7 @@ fun DeviceFailureContent(
                 .padding(horizontal = 24.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Spacer(modifier = Modifier.height(150.dp))
+            Spacer(modifier = Modifier.weight(1f))
             Image(
                 painter = painterResource(id = R.drawable.ic_x_circle),
                 contentDescription = null,
@@ -308,7 +309,7 @@ fun DeviceFailureContent(
                 textAlign = TextAlign.Center
             )
 
-            Spacer(modifier = Modifier.height(62.dp))
+            Spacer(modifier = Modifier.weight(0.5f))
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -333,7 +334,7 @@ fun DeviceFailureContent(
                 )
             }
 
-            Spacer(modifier = Modifier.weight(1f))
+            Spacer(modifier = Modifier.height(10.dp))
 
             Button(
                 onClick = onRetryClick,
@@ -352,7 +353,7 @@ fun DeviceFailureContent(
             ) {
                 Text("고객지원 문의하기", fontSize = 16.sp, color = FlowColors.TextGray2)
             }
-            Spacer(modifier = Modifier.height(40.dp))
+            Spacer(modifier = Modifier.height(20.dp))
         }
     }
 }

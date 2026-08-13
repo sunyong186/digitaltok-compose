@@ -12,17 +12,31 @@ class DeviceRepository {
 
     private val apiService = RetrofitClient.apiService
 
-
     suspend fun registerDevice(nfcUid: String): Result<DeviceData> {
         kotlinx.coroutines.delay(500)
+        
+        if (nfcUid == "ERROR_REGISTER") {
+            Log.e("DeviceRepository", "기기 등록 Mock 실패")
+            return Result.failure(Exception("Registration Error"))
+        }
+
         Log.d("DeviceRepository", "기기 등록 Mock 성공")
         return Result.success(DeviceData(deviceId = 1, registeredAt = "2024-01-01T00:00:00Z", unregisteredAt = null, status = "ACTIVE"))
     }
 
     suspend fun getDeviceByNfcUid(nfcUid: String): Result<DeviceData> {
         kotlinx.coroutines.delay(500)
-        Log.d("DeviceRepository", "기기 상태 조회 Mock 성공")
-        return Result.success(DeviceData(deviceId = 1, registeredAt = "2024-01-01T00:00:00Z", unregisteredAt = null, status = "ACTIVE"))
+        
+        when (nfcUid) {
+            "ERROR_FAIL" -> {
+                Log.e("DeviceRepository", "기기 상태 조회 Mock 실패 (알 수 없는 에러)")
+                return Result.failure(Exception("Unknown Error"))
+            }
+            else -> {
+                Log.d("DeviceRepository", "기기 상태 조회 Mock 성공")
+                return Result.success(DeviceData(deviceId = 1, registeredAt = "2024-01-01T00:00:00Z", unregisteredAt = null, status = "ACTIVE"))
+            }
+        }
     }
 
     suspend fun deleteDevice(nfcUid: String): Result<DeviceData> {
