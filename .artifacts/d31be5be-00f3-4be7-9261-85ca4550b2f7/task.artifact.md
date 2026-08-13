@@ -1,0 +1,5 @@
+- [x] `DeviceFlowComponents.kt`의 `DeviceConnectContent` 레이아웃 최적화
+    - [x] 중간 영역에 스크롤 다시 추가 (`weight(1f)`와 병행)
+    - [x] 공간이 부족한 작은 기기를 고려하여 간격(Spacer) 조정
+    - [x] 하단 안내 박스의 위치 고정 및 안정성 확인
+- [x] 빌드 및 레이아웃 검증

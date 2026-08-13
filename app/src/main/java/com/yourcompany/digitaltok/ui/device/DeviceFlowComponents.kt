@@ -77,9 +77,10 @@ fun DeviceConnectContent(
                 .fillMaxWidth()
                 .weight(1f)
                 .verticalScroll(rememberScrollState()),
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
-            Spacer(modifier = Modifier.height(73.dp))
+            Spacer(modifier = Modifier.height(30.dp))
             Image(
                 painter = painterResource(id = R.drawable.ic_phone),
                 contentDescription = null,
@@ -125,7 +126,7 @@ fun DeviceConnectContent(
                     color = Color(0xFFF7F8FA),
                     shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp)
                 )
-                .padding(horizontal = 35.dp, vertical = 50.dp)
+                .padding(horizontal = 35.dp, vertical = 30.dp)
         ) {
             Row(verticalAlignment = Alignment.Top) {
                 Image(
