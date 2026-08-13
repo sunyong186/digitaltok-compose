@@ -61,7 +61,7 @@ private fun ComposableFragmentContainer(modifier: Modifier = Modifier, fragment:
 
     AndroidView(
         factory = { FragmentContainerView(it).apply { id = containerId } },
-        modifier = modifier,
+        modifier = modifier.statusBarsPadding(),
         update = {
             val fm = (context as? FragmentActivity)?.supportFragmentManager
             if (fm != null && fm.findFragmentById(containerId) == null) {
@@ -114,7 +114,7 @@ fun HomeScreen(mainViewModel: MainViewModel, mainUiViewModel: MainUiViewModel) {
             modifier = Modifier.padding(
                 start = 0.dp,
                 end = 0.dp,
-                top = innerPadding.calculateTopPadding(),
+                top = 0.dp,
                 bottom = if (isBottomNavVisible) innerPadding.calculateBottomPadding() else 0.dp
             )
         ) {
@@ -170,6 +170,7 @@ private fun HomeNoConnection() {
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
+            .statusBarsPadding()
     ) {
         // 상단 타이틀
         Text(
@@ -262,6 +263,7 @@ private fun HomeConnected(lastImageUrl: String?, onNavigateToDecorate: () -> Uni
         modifier = Modifier
             .fillMaxSize()
             .padding(horizontal = 16.dp)
+            .statusBarsPadding()
     ) {
         Text(
             text = "DigitalTok",
