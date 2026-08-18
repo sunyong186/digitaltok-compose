@@ -8,6 +8,7 @@ data class DecorateItem(
     val previewUrl: String? = null, // Glide로 로드할 URL (서버)
     val imageUri: Uri? = null, // Glide로 로드할 Uri (로컬)
     var isSlot: Boolean = false,
+    var isEmptySlot: Boolean = false,
     var isFavorite: Boolean = false,
     var isSelected: Boolean = false, // 선택 상태
     val onAddClick: (() -> Unit)? = null // 추가 버튼 클릭 리스너
