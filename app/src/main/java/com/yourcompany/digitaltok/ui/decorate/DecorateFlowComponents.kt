@@ -32,6 +32,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import androidx.compose.ui.tooling.preview.Preview
 import com.yourcompany.digitaltok.R
 import com.yourcompany.digitaltok.ui.components.BackArrowIcon
 
@@ -137,8 +138,26 @@ fun RecentDecorateContent(
     onAddImageClick: () -> Unit,
     onSendClick: () -> Unit
 ) {
-    val selectedItem = items.find { it.isSelected && !it.isSlot }
-    val filledCount = items.count { !it.isSlot }
+    val selectedItem = items.find { it.isSelected && !it.isSlot && !it.isEmptySlot }
+    val filledCount = items.count { !it.isSlot && !it.isEmptySlot }
+
+    // 15개 슬롯 구성 (+ 추가 슬롯 1개 + 등록된 이미지 + 나머지 빈 슬롯)
+    val displayItems = remember(items, maxSlots) {
+        val nonSlotItems = items.filter { !it.isSlot && !it.isEmptySlot }
+        val addSlot = items.find { it.isSlot } ?: DecorateItem(id = "slot_add", title = "추가", isSlot = true)
+        val combined = listOf(addSlot) + nonSlotItems
+        if (combined.size < maxSlots) {
+            combined + List(maxSlots - combined.size) { index ->
+                DecorateItem(
+                    id = "empty_slot_$index",
+                    title = "",
+                    isEmptySlot = true
+                )
+            }
+        } else {
+            combined.take(maxSlots)
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -157,17 +176,18 @@ fun RecentDecorateContent(
 
         Spacer(modifier = Modifier.height(16.dp))
 
+        // 15개의 네모는 독립적으로 스크롤 (LazyVerticalGrid weight(1f))
         LazyVerticalGrid(
             columns = GridCells.Fixed(3),
             horizontalArrangement = Arrangement.spacedBy(10.dp),
             verticalArrangement = Arrangement.spacedBy(10.dp),
             modifier = Modifier.weight(1f)
         ) {
-            items(items) { item ->
+            items(displayItems) { item ->
                 DecorateGridItemView(
                     item = item,
                     onClick = {
-                        if (item.isSlot) {
+                        if (item.isSlot || item.isEmptySlot) {
                             onAddImageClick()
                         } else {
                             onItemClick(item)
@@ -180,8 +200,9 @@ fun RecentDecorateContent(
             }
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(12.dp))
 
+        // 고정 하단 버튼 (하단 네비게이션 바와 가깝게 여백 최소화)
         Button(
             onClick = {
                 if (selectedItem != null) {
@@ -206,7 +227,7 @@ fun RecentDecorateContent(
             )
         }
 
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(8.dp))
     }
 }
 
@@ -236,6 +257,21 @@ fun DecorateGridItemView(
                 tint = DecorateColors.TextGray1,
                 modifier = Modifier.size(24.dp)
             )
+        } else if (item.isEmptySlot) {
+            // 빈 슬롯: 은은한 하트 테두리 아이콘
+            IconButton(
+                onClick = onClick,
+                modifier = Modifier
+                    .align(Alignment.TopEnd)
+                    .size(32.dp)
+                    .padding(4.dp)
+            ) {
+                Icon(
+                    imageVector = Icons.Default.FavoriteBorder,
+                    contentDescription = null,
+                    tint = Color.White.copy(alpha = 0.7f)
+                )
+            }
         } else {
             val model = item.imageUri ?: item.previewUrl
             if (model != null) {
@@ -440,4 +476,64 @@ fun TemplateItemRow(
             }
         }
     }
+}
+
+// ==================== Android Studio Previews ====================
+
+@Preview(showBackground = true, name = "Decorate Top App Bar")
+@Composable
+fun DecorateTopAppBarPreview() {
+    DecorateTopAppBar(
+        title = "꾸미기",
+        showBackButton = true,
+        onBackClick = {}
+    )
+}
+
+@Preview(showBackground = true, name = "Decorate Tabs")
+@Composable
+fun DecorateTabsPreview() {
+    DecorateTabs(
+        selectedTab = DecorateTab.RECENT,
+        onTabSelected = {}
+    )
+}
+
+@Preview(showBackground = true, name = "Recent Decorate Content (15 Slots)")
+@Composable
+fun RecentDecorateContentPreview() {
+    val sampleItems = listOf(
+        DecorateItem(id = "slot_add", title = "추가", isSlot = true),
+        DecorateItem(id = "1", title = "기본 사진 1", isSelected = true),
+        DecorateItem(id = "2", title = "기본 사진 2", isFavorite = true)
+    )
+    RecentDecorateContent(
+        items = sampleItems,
+        onItemClick = {},
+        onFavoriteClick = { _, _ -> },
+        onAddImageClick = {},
+        onSendClick = {}
+    )
+}
+
+@Preview(showBackground = true, name = "Template Menu Content")
+@Composable
+fun TemplateMenuContentPreview() {
+    val sampleCategories = listOf(
+        TemplateItem(id = "1", title = "교통약자 좌석", desc = "교통약자 좌석 안내 템플릿"),
+        TemplateItem(id = "2", title = "지하철역", desc = "지하철 노선별로 정리된 템플릿")
+    )
+    TemplateMenuContent(
+        templateCategories = sampleCategories,
+        onCategoryClick = {}
+    )
+}
+
+@Preview(showBackground = true, name = "Template Item Row")
+@Composable
+fun TemplateItemRowPreview() {
+    TemplateItemRow(
+        item = TemplateItem(id = "1", title = "임산부 배려석", desc = "분홍색 임산부 배려석 템플릿"),
+        onClick = {}
+    )
 }

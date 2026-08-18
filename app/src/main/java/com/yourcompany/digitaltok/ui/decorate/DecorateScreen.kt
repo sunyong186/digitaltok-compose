@@ -1,7 +1,11 @@
 package com.yourcompany.digitaltok.ui.decorate
 
+import android.net.Uri
 import android.widget.Toast
 import androidx.activity.compose.BackHandler
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Scaffold
@@ -10,10 +14,12 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.core.content.FileProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.yourcompany.digitaltok.R
 import com.yourcompany.digitaltok.ui.MainUiViewModel
 import com.yourcompany.digitaltok.ui.MainViewModel
+import java.io.File
 
 enum class DecorateTab {
     RECENT, TEMPLATE
@@ -35,6 +41,47 @@ fun DecorateScreen(
     var templateScreen by remember { mutableStateOf(TemplateScreen.MENU) }
     var searchQuery by remember { mutableStateOf("") }
     var selectedItemId by remember { mutableStateOf<String?>(null) }
+
+    // 이미지 피커 & 크롭 관련 상태
+    var showImagePickerSheet by remember { mutableStateOf(false) }
+    var cropTargetUri by remember { mutableStateOf<Uri?>(null) }
+    var pendingCameraUri by remember { mutableStateOf<Uri?>(null) }
+
+    // 갤러리 피커 Launcher
+    val photoPickerLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.PickVisualMedia()
+    ) { uri: Uri? ->
+        if (uri != null) {
+            cropTargetUri = uri
+        }
+    }
+
+    // 카메라 촬영 Launcher
+    val cameraLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.TakePicture()
+    ) { success: Boolean ->
+        if (success && pendingCameraUri != null) {
+            cropTargetUri = pendingCameraUri
+        }
+    }
+
+    // 카메라 권한 및 임시파일 생성 후 촬영 준비
+    val launchCamera = {
+        try {
+            val cameraDir = File(context.cacheDir, "camera")
+            if (!cameraDir.exists()) cameraDir.mkdirs()
+            val tempFile = File(cameraDir, "cam_${System.currentTimeMillis()}.jpg")
+            val uri = FileProvider.getUriForFile(
+                context,
+                "${context.packageName}.fileprovider",
+                tempFile
+            )
+            pendingCameraUri = uri
+            cameraLauncher.launch(uri)
+        } catch (e: Exception) {
+            Toast.makeText(context, "카메라를 실행할 수 없습니다.", Toast.LENGTH_SHORT).show()
+        }
+    }
 
     // 기본 최근 이미지 항목 (기본 추가 슬롯 포함)
     var recentItems by remember {
@@ -91,7 +138,31 @@ fun DecorateScreen(
         }
     }
 
-    // 뒤로가기 제어: 템플릿 하위 리스트 보기 상태이면 MENU로 이동
+    // 뒤로가기 제어: 크롭 화면이나 템플릿 서브화면 상태 처리
+    if (cropTargetUri != null) {
+        BackHandler {
+            cropTargetUri = null
+        }
+        CropScreen(
+            imageUri = cropTargetUri!!,
+            onCropSuccess = { croppedUri ->
+                val newItem = DecorateItem(
+                    id = "user_${System.currentTimeMillis()}",
+                    title = "내 사진",
+                    imageUri = croppedUri
+                )
+                recentItems = listOf(recentItems.first()) + listOf(newItem) + recentItems.drop(1)
+                selectedItemId = newItem.id
+                cropTargetUri = null
+                Toast.makeText(context, "이미지가 추가되었습니다.", Toast.LENGTH_SHORT).show()
+            },
+            onCancel = {
+                cropTargetUri = null
+            }
+        )
+        return
+    }
+
     BackHandler(enabled = (selectedTab == DecorateTab.TEMPLATE && templateScreen != TemplateScreen.MENU)) {
         templateScreen = TemplateScreen.MENU
     }
@@ -139,7 +210,7 @@ fun DecorateScreen(
                             }
                         },
                         onAddImageClick = {
-                            Toast.makeText(context, "이미지 추가/크롭 기능은 Phase 3-2에서 연동됩니다.", Toast.LENGTH_SHORT).show()
+                            showImagePickerSheet = true
                         },
                         onSendClick = {
                             val selected = recentItems.find { it.id == selectedItemId }
@@ -185,5 +256,17 @@ fun DecorateScreen(
                 }
             }
         }
+    }
+
+    if (showImagePickerSheet) {
+        ImagePickerBottomSheet(
+            onDismissRequest = { showImagePickerSheet = false },
+            onCameraClick = {
+                launchCamera()
+            },
+            onGalleryClick = {
+                photoPickerLauncher.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+            }
+        )
     }
 }
