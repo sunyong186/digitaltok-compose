@@ -47,6 +47,11 @@ fun DecorateScreen(
     var cropTargetUri by remember { mutableStateOf<Uri?>(null) }
     var pendingCameraUri by remember { mutableStateOf<Uri?>(null) }
 
+    // 미리보기 및 기기 전송 관련 상태
+    var activePreviewTitle by remember { mutableStateOf<String?>(null) }
+    var activePreviewImageUrl by remember { mutableStateOf<String?>(null) }
+    var activePreviewImageUri by remember { mutableStateOf<Uri?>(null) }
+
     // 갤러리 피커 Launcher
     val photoPickerLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickVisualMedia()
@@ -138,7 +143,7 @@ fun DecorateScreen(
         }
     }
 
-    // 뒤로가기 제어: 크롭 화면이나 템플릿 서브화면 상태 처리
+    // 1. 크롭 화면 핸들링
     if (cropTargetUri != null) {
         BackHandler {
             cropTargetUri = null
@@ -163,6 +168,33 @@ fun DecorateScreen(
         return
     }
 
+    // 2. 미리보기 / 전송 화면 핸들링
+    if (activePreviewTitle != null) {
+        BackHandler {
+            activePreviewTitle = null
+            activePreviewImageUrl = null
+            activePreviewImageUri = null
+        }
+        ImagePreviewScreen(
+            title = activePreviewTitle!!,
+            imageUrl = activePreviewImageUrl,
+            imageUri = activePreviewImageUri,
+            onBackClick = {
+                activePreviewTitle = null
+                activePreviewImageUrl = null
+                activePreviewImageUri = null
+            },
+            onTransferSuccess = {
+                activePreviewTitle = null
+                activePreviewImageUrl = null
+                activePreviewImageUri = null
+                selectedItemId = null
+                Toast.makeText(context, "기기에 성공적으로 전송되었습니다.", Toast.LENGTH_SHORT).show()
+            }
+        )
+        return
+    }
+
     BackHandler(enabled = (selectedTab == DecorateTab.TEMPLATE && templateScreen != TemplateScreen.MENU)) {
         templateScreen = TemplateScreen.MENU
     }
@@ -182,7 +214,7 @@ fun DecorateScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(innerPadding)
+                .padding(top = innerPadding.calculateTopPadding())
                 .background(Color.White)
         ) {
             DecorateTabs(
@@ -215,7 +247,9 @@ fun DecorateScreen(
                         onSendClick = {
                             val selected = recentItems.find { it.id == selectedItemId }
                             if (selected != null) {
-                                Toast.makeText(context, "'${selected.title}' 선택됨 (미리보기 연동 예정)", Toast.LENGTH_SHORT).show()
+                                activePreviewTitle = "사진 업로드"
+                                activePreviewImageUrl = selected.previewUrl
+                                activePreviewImageUri = selected.imageUri
                             }
                         }
                     )
@@ -238,7 +272,8 @@ fun DecorateScreen(
                             SeatListContent(
                                 seats = seatTemplates,
                                 onSeatClick = { seat ->
-                                    Toast.makeText(context, "'${seat.title}' 템플릿 선택됨", Toast.LENGTH_SHORT).show()
+                                    activePreviewTitle = "템플릿 업로드"
+                                    activePreviewImageUrl = seat.thumbUrl
                                 }
                             )
                         }
@@ -248,7 +283,8 @@ fun DecorateScreen(
                                 onSearchQueryChange = { searchQuery = it },
                                 stations = filteredStations,
                                 onStationClick = { station ->
-                                    Toast.makeText(context, "'${station.title}' 템플릿 선택됨", Toast.LENGTH_SHORT).show()
+                                    activePreviewTitle = "지하철 템플릿 업로드"
+                                    activePreviewImageUrl = station.thumbUrl
                                 }
                             )
                         }
