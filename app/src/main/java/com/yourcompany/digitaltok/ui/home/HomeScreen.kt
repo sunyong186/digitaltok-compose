@@ -1,6 +1,5 @@
 package com.yourcompany.digitaltok.ui.home
 
-import android.view.View
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -25,16 +24,10 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.viewinterop.AndroidView
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentContainerView
-import androidx.fragment.app.commit
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -47,31 +40,11 @@ import com.yourcompany.digitaltok.ui.MainViewModel
 import com.yourcompany.digitaltok.ui.components.BottomNavBar
 import com.yourcompany.digitaltok.ui.decorate.DecorateScreen
 import com.yourcompany.digitaltok.ui.device.DeviceScreen
-import com.yourcompany.digitaltok.ui.faq.HelpFragment
+import com.yourcompany.digitaltok.ui.setting.SettingsScreen
 
 private object Variables {
     val Gray1 = Color(0xFFA0A0A0)
     val Point = Color(0xFF3AADFF)
-}
-
-@Composable
-private fun ComposableFragmentContainer(modifier: Modifier = Modifier, fragment: () -> Fragment) {
-    val containerId = remember { View.generateViewId() }
-    val context = LocalContext.current
-
-    AndroidView(
-        factory = { FragmentContainerView(it).apply { id = containerId } },
-        modifier = modifier.statusBarsPadding(),
-        update = {
-            val fm = (context as? FragmentActivity)?.supportFragmentManager
-            if (fm != null && fm.findFragmentById(containerId) == null) {
-                fm.commit {
-                    setReorderingAllowed(true)
-                    add(containerId, fragment())
-                }
-            }
-        }
-    )
 }
 
 @Composable
@@ -125,7 +98,6 @@ fun HomeScreen(mainViewModel: MainViewModel, mainUiViewModel: MainUiViewModel) {
                 )
             }
 
-
             composable("device") {
                 DeviceScreen(
                     mainViewModel = mainViewModel,
@@ -141,7 +113,10 @@ fun HomeScreen(mainViewModel: MainViewModel, mainUiViewModel: MainUiViewModel) {
             }
 
             composable("settings") {
-                ComposableFragmentContainer(modifier = Modifier.fillMaxSize()) { HelpFragment() }
+                SettingsScreen(
+                    mainViewModel = mainViewModel,
+                    mainUiViewModel = mainUiViewModel
+                )
             }
         }
     }
@@ -204,8 +179,8 @@ private fun HomeNoConnection() {
             Column(
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
-                    .offset(x = (-50).dp)          // ✅ 왼쪽/오른쪽 이동 (여기만 조절)
-                    .padding(bottom = 0.dp),      // ✅ 아래에서 띄우기 (여기만 조절: 탭바 위)
+                    .offset(x = (-50).dp)          // ✅ 왼쪽/오른쪽 이동
+                    .padding(bottom = 0.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
@@ -239,10 +214,8 @@ private fun HomeNoConnection() {
                 )
             }
         }
-
     }
 }
-
 
 @Preview(showBackground = true, backgroundColor = 0xFFFFFFFF)
 @Composable
