@@ -35,7 +35,7 @@
             android:exported="true"
             android:label="@string/app_name"
             android:launchMode="singleTop"
-            android:theme="@style/Theme.DigitalTok.Splash">
+            android:theme="@style/Theme.DigitalTok">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

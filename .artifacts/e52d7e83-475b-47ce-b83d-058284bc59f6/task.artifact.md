@@ -1,0 +1,4 @@
+- [x] Extract `AppNavHostContent` from `AppNavHost` in `MainActivity.kt`
+- [x] Update `AppNavHost` to call `AppNavHostContent`
+- [x] Add `AppNavHostPreview` and `AppNavHostLoginPreview` at the bottom of `MainActivity.kt`
+- [x] Verify changes with `analyze_file` and `render_compose_preview`
