@@ -60,18 +60,14 @@ fun AuthStartScreen(
     var pwVisible by remember { mutableStateOf(false) }
     var isLoading by remember { mutableStateOf(false) }
 
-    val pretendard = FontFamily(
-        Font(R.font.pretendard_regular, FontWeight.Normal),
-        Font(R.font.pretendard_medium, FontWeight.Medium),
-        Font(R.font.pretendard_semibold, FontWeight.SemiBold),
-        Font(R.font.pretendard_bold, FontWeight.Bold)
-    )
-
-    val isLoginEnabled =
-        email.trim().isNotEmpty() &&
-                password.isNotEmpty() &&
-                Patterns.EMAIL_ADDRESS.matcher(email.trim()).matches() &&
-                !isLoading
+    val isLoginEnabled by remember(email, password, isLoading) {
+        derivedStateOf {
+            email.trim().isNotEmpty() &&
+                    password.isNotEmpty() &&
+                    Patterns.EMAIL_ADDRESS.matcher(email.trim()).matches() &&
+                    !isLoading
+        }
+    }
 
     val authRepository = remember { AuthRepository() }
     val noRippleInteraction = remember { MutableInteractionSource() }
@@ -103,7 +99,7 @@ fun AuthStartScreen(
             style = TextStyle(
                 fontSize = 36.sp,
                 lineHeight = 40.sp,
-                fontFamily = pretendard,
+                fontFamily = Pretendard,
                 fontWeight = FontWeight.Bold,
                 color = DtTextBlack11,
                 textAlign = TextAlign.Center
@@ -122,7 +118,7 @@ fun AuthStartScreen(
             style = TextStyle(
                 fontSize = 18.sp,
                 lineHeight = 20.sp,
-                fontFamily = pretendard,
+                fontFamily = Pretendard,
                 fontWeight = FontWeight.Medium,
                 color = DtTextGray50,
                 textAlign = TextAlign.Center

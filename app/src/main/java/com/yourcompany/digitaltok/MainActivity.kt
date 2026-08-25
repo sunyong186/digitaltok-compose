@@ -25,6 +25,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.content.IntentCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -75,7 +76,7 @@ class MainActivity : AppCompatActivity() {
             intent.action == NfcAdapter.ACTION_TAG_DISCOVERED
         ) {
             Log.d("NFC", "NFC Tag Intent received")
-            val tag = intent.getParcelableExtra<Tag>(NfcAdapter.EXTRA_TAG)
+            val tag = IntentCompat.getParcelableExtra(intent, NfcAdapter.EXTRA_TAG, Tag::class.java)
             if (tag != null) {
                 nfcViewModel.onTagDiscovered(tag)
             }

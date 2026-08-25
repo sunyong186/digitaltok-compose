@@ -73,17 +73,19 @@ fun SignupScreen(
     var cbTerms2 by remember { mutableStateOf(false) }
     var cbTerms3 by remember { mutableStateOf(false) }
 
-    val isEmailValid = Patterns.EMAIL_ADDRESS.matcher(email.trim()).matches()
-    val isPasswordValid = password.length >= 6
-    val isPasswordMatch = password == passwordConfirm && password.isNotEmpty()
+    val isEmailValid by remember(email) { derivedStateOf { Patterns.EMAIL_ADDRESS.matcher(email.trim()).matches() } }
+    val isPasswordValid by remember(password) { derivedStateOf { password.length >= 6 } }
+    val isPasswordMatch by remember(password, passwordConfirm) { derivedStateOf { password == passwordConfirm && password.isNotEmpty() } }
 
     val greenColor = DtSuccessGreen
     val redColor = DtFavoriteRed
     val buttonBlue = DtMain100
     val buttonDisabled = DtBorderGray
 
-    val requiredAgreed = cbTerms1 && cbTerms2
-    val isSignupEnabled = isEmailChecked && isPasswordValid && isPasswordMatch && requiredAgreed && !isSigningUp
+    val requiredAgreed by remember(cbTerms1, cbTerms2) { derivedStateOf { cbTerms1 && cbTerms2 } }
+    val isSignupEnabled by remember(isEmailChecked, isPasswordValid, isPasswordMatch, requiredAgreed, isSigningUp) {
+        derivedStateOf { isEmailChecked && isPasswordValid && isPasswordMatch && requiredAgreed && !isSigningUp }
+    }
 
     Column(
         modifier = Modifier
