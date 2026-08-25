@@ -20,15 +20,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-
-private object DialogColors {
-    val TextBlack = Color(0xFF121212)
-    val TextGray = Color(0xFF767676)
-    val RedButton = Color(0xFFFF5252)
-    val GrayButton = Color(0xFFF4F4F4)
-    val WarningBg = Color(0xFFFFF0F0)
-    val WarningBorder = Color(0xFFFF5252)
-}
+import com.yourcompany.digitaltok.ui.theme.*
 
 // ==================== 1. 로그아웃 다이얼로그 (bg_logout_dialog 1:1 이식) ====================
 
@@ -56,7 +48,7 @@ fun LogoutDialogContent(
                 text = "로그아웃",
                 fontSize = 18.sp,
                 fontWeight = FontWeight.SemiBold,
-                color = DialogColors.TextBlack,
+                color = DtTextBlack,
                 textAlign = TextAlign.Center
             )
 
@@ -66,7 +58,7 @@ fun LogoutDialogContent(
                 text = "정말 로그아웃 하시겠습니까?",
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Medium,
-                color = DialogColors.TextGray,
+                color = DtTextGray3,
                 textAlign = TextAlign.Center
             )
 
@@ -83,7 +75,7 @@ fun LogoutDialogContent(
                         .weight(1f)
                         .height(44.dp),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = DialogColors.RedButton,
+                        containerColor = DtFavoriteRed,
                         contentColor = Color.White
                     ),
                     shape = RoundedCornerShape(8.dp)
@@ -102,8 +94,8 @@ fun LogoutDialogContent(
                         .weight(1f)
                         .height(44.dp),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = DialogColors.GrayButton,
-                        contentColor = DialogColors.TextGray
+                        containerColor = DtLightGrayBg,
+                        contentColor = DtTextGray3
                     ),
                     shape = RoundedCornerShape(8.dp)
                 ) {
@@ -145,7 +137,7 @@ fun WithdrawDialogContent(
                 text = "회원 탈퇴",
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
-                color = DialogColors.TextBlack,
+                color = DtTextBlack,
                 textAlign = TextAlign.Center
             )
 
@@ -156,7 +148,7 @@ fun WithdrawDialogContent(
                 text = "정말 회원탈퇴를 하시겠습니까?",
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Medium,
-                color = DialogColors.TextGray,
+                color = DtTextGray3,
                 textAlign = TextAlign.Center
             )
 
@@ -166,14 +158,14 @@ fun WithdrawDialogContent(
             Surface(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(8.dp),
-                color = DialogColors.WarningBg,
-                border = BorderStroke(1.dp, DialogColors.WarningBorder.copy(alpha = 0.5f))
+                color = DtWithdrawBg,
+                border = BorderStroke(1.dp, DtFavoriteRed.copy(alpha = 0.5f))
             ) {
                 Text(
                     text = "※ 탈퇴 시 주의사항:\n\n• 모든 계정 정보가 삭제됩니다\n• 저장된 사진과 템플릿이 모두 삭제됩니다\n• 이 작업은 되돌릴 수 없습니다",
                     fontSize = 12.sp,
                     fontWeight = FontWeight.SemiBold,
-                    color = DialogColors.RedButton,
+                    color = DtFavoriteRed,
                     lineHeight = 18.sp,
                     modifier = Modifier.padding(start = 20.dp, end = 16.dp, top = 16.dp, bottom = 16.dp)
                 )
@@ -193,7 +185,7 @@ fun WithdrawDialogContent(
                         .weight(1f)
                         .height(48.dp),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = DialogColors.RedButton,
+                        containerColor = DtFavoriteRed,
                         contentColor = Color.White
                     ),
                     shape = RoundedCornerShape(8.dp)
@@ -212,8 +204,8 @@ fun WithdrawDialogContent(
                         .weight(1f)
                         .height(48.dp),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = DialogColors.GrayButton,
-                        contentColor = DialogColors.TextGray
+                        containerColor = DtLightGrayBg,
+                        contentColor = DtTextGray3
                     ),
                     shape = RoundedCornerShape(8.dp)
                 ) {
@@ -243,7 +235,7 @@ private fun CustomDialogInputField(
             .fillMaxWidth()
             .height(48.dp),
         shape = RoundedCornerShape(8.dp),
-        color = DialogColors.GrayButton
+        color = DtLightGrayBg
     ) {
         Box(
             modifier = Modifier
@@ -255,7 +247,7 @@ private fun CustomDialogInputField(
                 Text(
                     text = placeholderText,
                     fontSize = 14.sp,
-                    color = DialogColors.TextGray.copy(alpha = 0.6f)
+                    color = DtTextGray3.copy(alpha = 0.6f)
                 )
             }
             BasicTextField(
@@ -266,7 +258,7 @@ private fun CustomDialogInputField(
                 keyboardOptions = KeyboardOptions(keyboardType = keyboardType),
                 textStyle = TextStyle(
                     fontSize = 14.sp,
-                    color = DialogColors.TextBlack
+                    color = DtTextBlack
                 ),
                 modifier = Modifier.fillMaxWidth()
             )
@@ -301,7 +293,7 @@ fun ChangeEmailDialogContent(
                 text = "이메일 변경",
                 fontSize = 18.sp,
                 fontWeight = FontWeight.SemiBold,
-                color = DialogColors.TextBlack,
+                color = DtTextBlack,
                 modifier = Modifier.align(Alignment.CenterHorizontally)
             )
 
@@ -312,7 +304,7 @@ fun ChangeEmailDialogContent(
                 text = "기존 비밀번호 확인 후 새 이메일로 변경합니다.",
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Medium,
-                color = DialogColors.TextGray,
+                color = DtTextGray3,
                 modifier = Modifier.align(Alignment.CenterHorizontally)
             )
 
@@ -322,14 +314,14 @@ fun ChangeEmailDialogContent(
             Surface(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(8.dp),
-                color = DialogColors.WarningBg,
-                border = BorderStroke(1.dp, DialogColors.WarningBorder.copy(alpha = 0.5f))
+                color = DtWithdrawBg,
+                border = BorderStroke(1.dp, DtFavoriteRed.copy(alpha = 0.5f))
             ) {
                 Text(
                     text = "• 변경 후에는 새 이메일로 로그인해야 합니다.\n• 기존 데이터(사진/템플릿)는 그대로 유지됩니다.",
                     fontSize = 12.sp,
                     fontWeight = FontWeight.SemiBold,
-                    color = DialogColors.RedButton,
+                    color = DtFavoriteRed,
                     lineHeight = 18.sp,
                     modifier = Modifier.padding(start = 20.dp, end = 16.dp, top = 14.dp, bottom = 14.dp)
                 )
@@ -342,7 +334,7 @@ fun ChangeEmailDialogContent(
                 text = "기존 비밀번호",
                 fontSize = 12.sp,
                 fontWeight = FontWeight.SemiBold,
-                color = DialogColors.TextGray
+                color = DtTextGray3
             )
 
             Spacer(modifier = Modifier.height(6.dp))
@@ -361,7 +353,7 @@ fun ChangeEmailDialogContent(
                 text = "변경할 새 이메일",
                 fontSize = 12.sp,
                 fontWeight = FontWeight.SemiBold,
-                color = DialogColors.TextGray
+                color = DtTextGray3
             )
 
             Spacer(modifier = Modifier.height(6.dp))
@@ -387,7 +379,7 @@ fun ChangeEmailDialogContent(
                         .weight(1f)
                         .height(48.dp),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = DialogColors.RedButton,
+                        containerColor = DtFavoriteRed,
                         contentColor = Color.White
                     ),
                     shape = RoundedCornerShape(8.dp)
@@ -406,8 +398,8 @@ fun ChangeEmailDialogContent(
                         .weight(1f)
                         .height(48.dp),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = DialogColors.GrayButton,
-                        contentColor = DialogColors.TextGray
+                        containerColor = DtLightGrayBg,
+                        contentColor = DtTextGray3
                     ),
                     shape = RoundedCornerShape(8.dp)
                 ) {

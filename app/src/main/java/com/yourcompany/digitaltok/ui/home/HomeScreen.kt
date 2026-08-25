@@ -41,11 +41,7 @@ import com.yourcompany.digitaltok.ui.components.BottomNavBar
 import com.yourcompany.digitaltok.ui.decorate.DecorateScreen
 import com.yourcompany.digitaltok.ui.device.DeviceScreen
 import com.yourcompany.digitaltok.ui.setting.SettingsScreen
-
-private object Variables {
-    val Gray1 = Color(0xFFA0A0A0)
-    val Point = Color(0xFF3AADFF)
-}
+import com.yourcompany.digitaltok.ui.theme.*
 
 @Composable
 fun HomeScreen(mainViewModel: MainViewModel, mainUiViewModel: MainUiViewModel) {
@@ -69,7 +65,7 @@ fun HomeScreen(mainViewModel: MainViewModel, mainUiViewModel: MainUiViewModel) {
     }
 
     Scaffold(
-        containerColor = Color.White,
+        containerColor = DtWhite,
         bottomBar = {
             if (isBottomNavVisible) {
                 BottomNavBar(navController = navController, onItemClick = { route ->
@@ -147,7 +143,7 @@ private fun HomeNoConnection() {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White)
+            .background(DtWhite)
             .statusBarsPadding()
     ) {
         // 상단 타이틀
@@ -156,7 +152,7 @@ private fun HomeNoConnection() {
             style = TextStyle(
                 fontSize = 26.sp,
                 fontWeight = FontWeight(600),
-                color = Color(0xFF121212)
+                color = DtTextBlack
             ),
             modifier = Modifier
                 .align(Alignment.TopStart)
@@ -187,7 +183,7 @@ private fun HomeNoConnection() {
                     text = buildAnnotatedString {
                         withStyle(
                             SpanStyle(
-                                color = Variables.Point,
+                                color = DtPointBlue,
                                 fontWeight = FontWeight(700)
                             )
                         ) { append("기기 연결") }
@@ -196,7 +192,7 @@ private fun HomeNoConnection() {
                     style = TextStyle(
                         fontSize = 16.sp,
                         fontWeight = FontWeight(600),
-                        color = Variables.Gray1,
+                        color = DtTextGray1,
                         textAlign = TextAlign.Center
                     ),
                     textAlign = TextAlign.Center
@@ -209,7 +205,7 @@ private fun HomeNoConnection() {
                     style = TextStyle(
                         fontSize = 18.sp,
                         fontWeight = FontWeight(800),
-                        color = Variables.Point
+                        color = DtPointBlue
                     )
                 )
             }
@@ -246,7 +242,7 @@ private fun HomeConnected(lastImageUrl: String?, onNavigateToDecorate: () -> Uni
             style = TextStyle(
                 fontSize = 26.sp,
                 fontWeight = FontWeight(600),
-                color = Color(0xFF121212)
+                color = DtTextBlack
             )
         )
 
@@ -260,7 +256,7 @@ private fun HomeConnected(lastImageUrl: String?, onNavigateToDecorate: () -> Uni
                 modifier = Modifier
                     .shadow(20.dp, RoundedCornerShape(12.dp))
                     .size(288.dp)
-                    .background(Color.White, RoundedCornerShape(12.dp))
+                    .background(DtWhite, RoundedCornerShape(12.dp))
                     .padding(12.dp)
                     .clickable { onNavigateToDecorate() },
                 contentAlignment = Alignment.Center
@@ -269,7 +265,7 @@ private fun HomeConnected(lastImageUrl: String?, onNavigateToDecorate: () -> Uni
                     modifier = Modifier
                         .fillMaxSize()
                         .clip(RoundedCornerShape(10.dp))
-                        .background(Color(0xFFF4F4F4))
+                        .background(DtLightGrayBg)
                 ) {
                     AsyncImage(
                         model = lastImageUrl ?: R.drawable.rectangle_95,
@@ -290,7 +286,7 @@ private fun HomeConnected(lastImageUrl: String?, onNavigateToDecorate: () -> Uni
             style = TextStyle(
                 fontSize = 16.sp,
                 fontWeight = FontWeight(600),
-                color = Variables.Point
+                color = DtPointBlue
             ),
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)

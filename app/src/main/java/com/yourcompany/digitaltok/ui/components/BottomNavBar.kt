@@ -15,11 +15,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
-
-private object AppColors {
-    val Point = Color(0xFF3AADFF)
-    val Gray1 = Color(0xFFA0A0A0)
-}
+import com.yourcompany.digitaltok.ui.theme.*
 
 private data class BottomItem(
     val route: String,
@@ -42,7 +38,7 @@ fun BottomNavBar(
     val backStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = backStackEntry?.destination?.route
 
-    NavigationBar(containerColor = Color.White) {
+    NavigationBar(containerColor = DtWhite) {
         items.forEach { item ->
             val selected = currentRoute == item.route
 
@@ -63,10 +59,10 @@ fun BottomNavBar(
                 icon = { Icon(item.icon, contentDescription = item.label) },
                 label = { Text(item.label) },
                 colors = NavigationBarItemDefaults.colors(
-                    selectedIconColor = AppColors.Point,
-                    selectedTextColor = AppColors.Point,
-                    unselectedIconColor = AppColors.Gray1,
-                    unselectedTextColor = AppColors.Gray1,
+                    selectedIconColor = DtPointBlue,
+                    selectedTextColor = DtPointBlue,
+                    unselectedIconColor = DtTextGray1,
+                    unselectedTextColor = DtTextGray1,
                     indicatorColor = Color.Transparent
                 )
             )

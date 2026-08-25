@@ -40,6 +40,7 @@ import com.yourcompany.digitaltok.ui.onboarding.OnboardingPrefs
 import com.yourcompany.digitaltok.ui.onboarding.OnboardingScreen
 import com.yourcompany.digitaltok.ui.theme.DigitalTokTheme
 import kotlinx.coroutines.delay
+import com.yourcompany.digitaltok.ui.theme.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -134,7 +135,7 @@ private fun SplashLanding() {
             Text(
                 text = "내 마음대로 꾸미는 나만의 키링",
                 fontSize = 20.sp,
-                color = Color(0xFF6B6B6B)
+                color = DtTextGray2
             )
         }
     }

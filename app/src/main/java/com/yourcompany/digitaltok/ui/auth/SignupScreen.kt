@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.sp
 import com.yourcompany.digitaltok.R
 import com.yourcompany.digitaltok.data.repository.AuthRepository
 import com.yourcompany.digitaltok.ui.components.BackArrowIcon
+import com.yourcompany.digitaltok.ui.theme.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -74,10 +75,10 @@ fun SignupScreen(
     val isPasswordValid = password.length >= 6
     val isPasswordMatch = password == passwordConfirm && password.isNotEmpty()
 
-    val greenColor = Color(0xFF00C950)
-    val redColor = Color(0xFFFB2C36)
-    val buttonBlue = Color(0xFF36ABFF)
-    val buttonDisabled = Color(0xFFE9E9E9)
+    val greenColor = DtSuccessGreen
+    val redColor = DtFavoriteRed
+    val buttonBlue = DtMain100
+    val buttonDisabled = DtBorderGray
 
     val requiredAgreed = cbTerms1 && cbTerms2
     val isSignupEnabled = isEmailChecked && isPasswordValid && isPasswordMatch && requiredAgreed && !isSigningUp
@@ -85,7 +86,7 @@ fun SignupScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White)
+            .background(DtWhite)
             .statusBarsPadding()
     ) {
         // Top Bar
@@ -143,8 +144,8 @@ fun SignupScreen(
                     singleLine = true,
                     shape = RoundedCornerShape(10.dp),
                     colors = TextFieldDefaults.colors(
-                        focusedContainerColor = Color(0xFFF4F4F4),
-                        unfocusedContainerColor = Color(0xFFF4F4F4),
+                        focusedContainerColor = DtLightGrayBg,
+                        unfocusedContainerColor = DtLightGrayBg,
                         focusedIndicatorColor = Color.Transparent,
                         unfocusedIndicatorColor = Color.Transparent,
                     )
@@ -189,7 +190,7 @@ fun SignupScreen(
                     colors = ButtonDefaults.buttonColors(
                         containerColor = if (isEmailChecked) greenColor else buttonBlue,
                         disabledContainerColor = buttonDisabled,
-                        contentColor = Color.White
+                        contentColor = DtWhite
                     )
                 ) {
                     Text(if (isEmailChecked) "확인됨" else "중복확인")
@@ -229,8 +230,8 @@ fun SignupScreen(
                     )
                 },
                 colors = TextFieldDefaults.colors(
-                    focusedContainerColor = Color(0xFFF4F4F4),
-                    unfocusedContainerColor = Color(0xFFF4F4F4),
+                    focusedContainerColor = DtLightGrayBg,
+                    unfocusedContainerColor = DtLightGrayBg,
                     focusedIndicatorColor = Color.Transparent,
                     unfocusedIndicatorColor = Color.Transparent,
                 )
@@ -267,8 +268,8 @@ fun SignupScreen(
                     )
                 },
                 colors = TextFieldDefaults.colors(
-                    focusedContainerColor = Color(0xFFF4F4F4),
-                    unfocusedContainerColor = Color(0xFFF4F4F4),
+                    focusedContainerColor = DtLightGrayBg,
+                    unfocusedContainerColor = DtLightGrayBg,
                     focusedIndicatorColor = Color.Transparent,
                     unfocusedIndicatorColor = Color.Transparent,
                 )
@@ -338,7 +339,7 @@ fun SignupScreen(
                 colors = ButtonDefaults.buttonColors(
                     containerColor = buttonBlue,
                     disabledContainerColor = buttonDisabled,
-                    contentColor = Color.White
+                    contentColor = DtWhite
                 )
             ) {
                 Text(if (isSigningUp) "처리 중..." else "가입하기")
@@ -362,8 +363,8 @@ fun TermCheckbox(text: String, checked: Boolean, onCheckedChange: (Boolean) -> U
             checked = checked,
             onCheckedChange = onCheckedChange,
             colors = CheckboxDefaults.colors(
-                checkedColor = Color(0xFF36ABFF),
-                uncheckedColor = Color.Gray
+                checkedColor = DtMain100,
+                uncheckedColor = DtTextGray1
             )
         )
         Spacer(modifier = Modifier.width(8.dp))

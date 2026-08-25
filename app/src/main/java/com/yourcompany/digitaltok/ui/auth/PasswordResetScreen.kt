@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.border
 import com.yourcompany.digitaltok.data.repository.AuthRepository
 import com.yourcompany.digitaltok.ui.components.BackArrowIcon
+import com.yourcompany.digitaltok.ui.theme.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -48,13 +49,13 @@ fun PasswordResetScreen(
     var statusMessage by remember { mutableStateOf("") }
 
     val isEmailValid = Patterns.EMAIL_ADDRESS.matcher(email.trim()).matches()
-    val buttonBlue = Color(0xFF36ABFF)
-    val buttonDisabled = Color(0xFFE9E9E9)
+    val buttonBlue = DtMain100
+    val buttonDisabled = DtBorderGray
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White)
+            .background(DtWhite)
             .statusBarsPadding()
     ) {
         // Top Bar
@@ -75,7 +76,7 @@ fun PasswordResetScreen(
                 text = "이메일로 로그인",
                 fontSize = 16.sp,
                 fontWeight = FontWeight.SemiBold,
-                color = Color.Black,
+                color = DtTextBlack,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
                     .weight(1f)
@@ -101,7 +102,7 @@ fun PasswordResetScreen(
             Text(
                 text = "가입하신 이메일 주소를 입력하시면 비밀번호\n재설정 링크를 보내드립니다",
                 fontSize = 14.sp,
-                color = Color.Gray,
+                color = DtTextGray1,
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center,
                 lineHeight = 20.sp
@@ -118,12 +119,12 @@ fun PasswordResetScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(52.dp),
-                placeholder = { Text("example@mail.com", fontSize = 14.sp, color = Color.Gray) },
+                placeholder = { Text("example@mail.com", fontSize = 14.sp, color = DtTextGray1) },
                 singleLine = true,
                 shape = RoundedCornerShape(10.dp),
                 colors = TextFieldDefaults.colors(
-                    focusedContainerColor = Color(0xFFF4F4F4),
-                    unfocusedContainerColor = Color(0xFFF4F4F4),
+                    focusedContainerColor = DtLightGrayBg,
+                    unfocusedContainerColor = DtLightGrayBg,
                     focusedIndicatorColor = Color.Transparent,
                     unfocusedIndicatorColor = Color.Transparent,
                 )
@@ -133,7 +134,7 @@ fun PasswordResetScreen(
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
                     text = statusMessage,
-                    color = Color.Black,
+                    color = DtTextBlack,
                     fontSize = 14.sp,
                     modifier = Modifier.align(Alignment.CenterHorizontally)
                 )
@@ -144,8 +145,8 @@ fun PasswordResetScreen(
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .border(1.dp, Color(0xFFE9E9E9), RoundedCornerShape(12.dp))
-                    .background(Color(0xFFF9F9F9), RoundedCornerShape(12.dp))
+                    .border(1.dp, DtBorderGray, RoundedCornerShape(12.dp))
+                    .background(DtLightGrayBg, RoundedCornerShape(12.dp))
                     .padding(20.dp)
             ) {
                 Column {
@@ -153,18 +154,18 @@ fun PasswordResetScreen(
                         Icon(
                             imageVector = Icons.Outlined.Info,
                             contentDescription = null,
-                            tint = Color.Gray,
+                            tint = DtTextGray1,
                             modifier = Modifier.size(20.dp)
                         )
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text("참고사항", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = Color.DarkGray)
+                        Text("참고사항", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = DtTextBlack)
                     }
-                    Spacer(modifier = Modifier.height(12.dp))
-                    Text("• 이메일 도착까지 최대 5분이 소요됩니다", fontSize = 13.sp, color = Color.Gray)
+                    Spacer(modifier = Modifier.height(10.dp))
+                    Text("• 이메일 도착까지 최대 5분이 소요됩니다", fontSize = 13.sp, color = DtTextGray1)
                     Spacer(modifier = Modifier.height(4.dp))
-                    Text("• 스팸함을 확인해주세요", fontSize = 13.sp, color = Color.Gray)
+                    Text("• 스팸함을 확인해주세요", fontSize = 13.sp, color = DtTextGray1)
                     Spacer(modifier = Modifier.height(4.dp))
-                    Text("• 링크는 24시간 동안 유효합니다", fontSize = 13.sp, color = Color.Gray)
+                    Text("• 링크는 24시간 동안 유효합니다", fontSize = 13.sp, color = DtTextGray1)
                 }
             }
 
@@ -216,7 +217,7 @@ fun PasswordResetScreen(
                 colors = ButtonDefaults.buttonColors(
                     containerColor = buttonBlue,
                     disabledContainerColor = buttonDisabled,
-                    contentColor = Color.White
+                    contentColor = DtWhite
                 )
             ) {
                 Text(if (isSending) "전송 중..." else "재설정 링크 보내기")
@@ -231,8 +232,8 @@ fun PasswordResetScreen(
                     .height(52.dp),
                 shape = RoundedCornerShape(10.dp),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFFF4F4F4),
-                    contentColor = Color.Gray
+                    containerColor = DtLightGrayBg,
+                    contentColor = DtTextGray1
                 ),
                 elevation = ButtonDefaults.buttonElevation(defaultElevation = 0.dp)
             ) {

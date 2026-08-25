@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.yourcompany.digitaltok.R
+import com.yourcompany.digitaltok.ui.theme.*
 
 @Composable
 fun NfcDisabledDialog(onDismiss: () -> Unit) {
@@ -33,7 +34,7 @@ fun NfcDisabledDialog(onDismiss: () -> Unit) {
                 .fillMaxWidth()
                 .padding(16.dp),
             shape = RoundedCornerShape(24.dp),
-            color = Color.White,
+            color = DtWhite,
             shadowElevation = 10.dp
         ) {
             Column(
@@ -52,13 +53,13 @@ fun NfcDisabledDialog(onDismiss: () -> Unit) {
                     text = "NFC가 켜져 있지 않습니다.",
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Medium,
-                    color = Color(0xFF121212)
+                    color = DtTextBlack
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
                     text = "DiRing을 핸드폰 뒷면에 밀착시켜 주세요",
                     fontSize = 14.sp,
-                    color = Color(0xFF6B6B6B)
+                    color = DtTextGray2
                 )
                 Spacer(modifier = Modifier.height(25.dp))
                 Button(
@@ -71,11 +72,11 @@ fun NfcDisabledDialog(onDismiss: () -> Unit) {
                         .fillMaxWidth()
                         .height(48.dp),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = Color(0xFF3AADFF)
+                        containerColor = DtPointBlue
                     ),
                     shape = RoundedCornerShape(12.dp)
                 ) {
-                    Text("확인", color = Color.White, fontSize = 16.sp)
+                    Text("확인", color = DtWhite, fontSize = 16.sp)
                 }
                 Spacer(modifier = Modifier.height(8.dp))
                 Button(
@@ -84,11 +85,11 @@ fun NfcDisabledDialog(onDismiss: () -> Unit) {
                         .fillMaxWidth()
                         .height(48.dp),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = Color(0xFFF4F4F4)
+                        containerColor = DtLightGrayBg
                     ),
                     shape = RoundedCornerShape(12.dp)
                 ) {
-                    Text("취소", color = Color(0xFF6B6B6B), fontSize = 16.sp)
+                    Text("취소", color = DtTextGray2, fontSize = 16.sp)
                 }
             }
         }

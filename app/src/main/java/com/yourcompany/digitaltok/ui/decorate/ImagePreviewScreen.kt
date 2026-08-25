@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.yourcompany.digitaltok.R
 import com.yourcompany.digitaltok.ui.components.BackArrowIcon
+import com.yourcompany.digitaltok.ui.theme.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -38,9 +39,6 @@ fun ImagePreviewScreen(
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
     var dialogState by remember { mutableStateOf<TransferDialogState?>(null) }
-
-    val main100Color = Color(0xFF36ABFF)
-    val infoBoxBgColor = Color(0xFFEFF6FF)
 
     val startTransfer = {
         dialogState = TransferDialogState.Transferring
@@ -62,7 +60,7 @@ fun ImagePreviewScreen(
                         text = title,
                         fontSize = 18.sp,
                         fontWeight = FontWeight.SemiBold,
-                        color = DecorateColors.TextBlack
+                        color = DtTextBlack
                     )
                 },
                 navigationIcon = {
@@ -70,22 +68,22 @@ fun ImagePreviewScreen(
                         Icon(
                             imageVector = BackArrowIcon,
                             contentDescription = "뒤로가기",
-                            tint = DecorateColors.TextBlack
+                            tint = DtTextBlack
                         )
                     }
                 },
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                    containerColor = Color.White
+                    containerColor = DtWhite
                 )
             )
         },
-        containerColor = Color.White
+        containerColor = DtWhite
     ) { innerPadding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(top = innerPadding.calculateTopPadding())
-                .background(Color.White)
+                .background(DtWhite)
                 .padding(horizontal = 24.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -97,7 +95,7 @@ fun ImagePreviewScreen(
                     .fillMaxWidth(0.75f)
                     .aspectRatio(1f),
                 shape = RoundedCornerShape(4.dp),
-                color = Color.White,
+                color = DtWhite,
                 shadowElevation = 4.dp
             ) {
                 Box(
@@ -132,7 +130,7 @@ fun ImagePreviewScreen(
                 text = "디링 미리보기",
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Medium,
-                color = DecorateColors.TextGray2
+                color = DtTextGray2
             )
 
             Spacer(modifier = Modifier.weight(1f))
@@ -141,13 +139,13 @@ fun ImagePreviewScreen(
             Surface(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(12.dp),
-                color = infoBoxBgColor
+                color = DtInfoSolid
             ) {
                 Text(
-                    text = "디링을 핸드폰 뒷면에 밀착시켜 주세요.\n푸른 계열은 DigitalTok에 구현이 불가합니다.",
-                    fontSize = 12.sp,
+                    text = "NFC를 통해 등록될 최종 이미지 화면입니다.",
+                    fontSize = 13.sp,
                     fontWeight = FontWeight.Medium,
-                    color = main100Color,
+                    color = DtMain100,
                     textAlign = TextAlign.Center,
                     modifier = Modifier
                         .fillMaxWidth()
@@ -164,15 +162,15 @@ fun ImagePreviewScreen(
                     .fillMaxWidth()
                     .height(52.dp),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = main100Color
+                    containerColor = DtMain100
                 ),
                 shape = RoundedCornerShape(12.dp)
             ) {
                 Text(
-                    text = "디링에 전송하기",
+                    text = "NFC로 키링에 전송하기",
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold,
-                    color = Color.White
+                    color = DtWhite
                 )
             }
 
