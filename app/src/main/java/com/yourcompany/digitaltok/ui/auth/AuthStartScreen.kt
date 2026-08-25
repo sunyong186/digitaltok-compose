@@ -10,6 +10,9 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -168,9 +171,10 @@ fun AuthStartScreen(
                 if (pwVisible) VisualTransformation.None
                 else PasswordVisualTransformation(),
             trailingIcon = {
-                Image(
-                    painter = painterResource(id = R.drawable.eye_closed),
+                Icon(
+                    imageVector = if (pwVisible) Icons.Default.Visibility else Icons.Default.VisibilityOff,
                     contentDescription = null,
+                    tint = DtTextGray3,
                     modifier = Modifier
                         .size(22.dp)
                         .clickable { pwVisible = !pwVisible }

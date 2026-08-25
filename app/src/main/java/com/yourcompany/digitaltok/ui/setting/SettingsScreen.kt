@@ -18,8 +18,10 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ChevronRight
+import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.ExpandLess
 import androidx.compose.material.icons.filled.ExpandMore
+import androidx.compose.material.icons.filled.Headset
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -799,9 +801,10 @@ private fun SupportContent() {
         Spacer(modifier = Modifier.height(49.dp))
 
         // 헤드셋 아이콘 (ivHeadset 88dp x 88dp)
-        Image(
-            painter = painterResource(id = R.drawable.headset),
+        Icon(
+            imageVector = Icons.Default.Headset,
             contentDescription = null,
+            tint = DtPointBlue,
             modifier = Modifier.size(88.dp)
         )
 
@@ -843,9 +846,10 @@ private fun SupportContent() {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 // 원본 icon_email_wrap 드로어블 리소스 직접 사용
-                Image(
-                    painter = painterResource(id = R.drawable.icon_email_wrap),
+                Icon(
+                    imageVector = Icons.Default.Email,
                     contentDescription = null,
+                    tint = DtPointBlue,
                     modifier = Modifier.size(48.dp)
                 )
 
