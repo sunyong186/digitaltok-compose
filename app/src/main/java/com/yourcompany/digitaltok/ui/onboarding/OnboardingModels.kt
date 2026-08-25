@@ -1,8 +1,10 @@
 package com.yourcompany.digitaltok.ui.onboarding
 
+import androidx.compose.runtime.Immutable
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
+@Immutable
 data class OnboardingImageLayer(
     val resId: Int,
     val size: Dp,
@@ -10,6 +12,7 @@ data class OnboardingImageLayer(
     val offsetY: Dp = 0.dp
 )
 
+@Immutable
 data class OnboardingPageData(
     val title: String,
     val subtitle: String,

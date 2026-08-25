@@ -24,6 +24,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.content.IntentCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -51,7 +53,6 @@ class MainActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        installSplashScreen()
         super.onCreate(savedInstanceState)
 
         supportActionBar?.hide()
@@ -75,7 +76,7 @@ class MainActivity : AppCompatActivity() {
             intent.action == NfcAdapter.ACTION_TAG_DISCOVERED
         ) {
             Log.d("NFC", "NFC Tag Intent received")
-            val tag = intent.getParcelableExtra<Tag>(NfcAdapter.EXTRA_TAG)
+            val tag = IntentCompat.getParcelableExtra(intent, NfcAdapter.EXTRA_TAG, Tag::class.java)
             if (tag != null) {
                 nfcViewModel.onTagDiscovered(tag)
             }
@@ -148,23 +149,40 @@ fun AppNavHost(
     navController: NavHostController = rememberNavController()
 ) {
     val context = LocalContext.current
+    val isOnboardingDone = OnboardingPrefs.isDone(context)
 
+    AppNavHostContent(
+        navController = navController,
+        isOnboardingDone = isOnboardingDone,
+        onOnboardingFinish = {
+            // 온보딩 완료 저장
+            OnboardingPrefs.setDone(context)
+
+            navController.navigate("login") {
+                popUpTo("onboarding") { inclusive = true }
+            }
+        },
+        homeScreen = {
+            HomeScreen(mainViewModel = mainViewModel, mainUiViewModel = mainUiViewModel)
+        }
+    )
+}
+
+@Composable
+private fun AppNavHostContent(
+    navController: NavHostController,
+    isOnboardingDone: Boolean,
+    onOnboardingFinish: () -> Unit,
+    homeScreen: @Composable () -> Unit
+) {
     // 온보딩 1회만: 완료했으면 login부터 시작
-    val startDestination =
-        if (OnboardingPrefs.isDone(context)) "login" else "onboarding"
+    val startDestination = if (isOnboardingDone) "login" else "onboarding"
 
     NavHost(navController, startDestination = startDestination) {
 
         composable("onboarding") {
             OnboardingScreen(
-                onFinish = {
-                    // 온보딩 완료 저장
-                    OnboardingPrefs.setDone(context)
-
-                    navController.navigate("login") {
-                        popUpTo("onboarding") { inclusive = true }
-                    }
-                }
+                onFinish = onOnboardingFinish
             )
         }
 
@@ -194,7 +212,41 @@ fun AppNavHost(
         }
 
         composable("home") {
-            HomeScreen(mainViewModel = mainViewModel, mainUiViewModel = mainUiViewModel)
+            homeScreen()
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun SplashLandingPreview() {
+    DigitalTokTheme {
+        SplashLanding()
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun AppNavHostOnboardingPreview() {
+    DigitalTokTheme {
+        AppNavHostContent(
+            navController = rememberNavController(),
+            isOnboardingDone = false,
+            onOnboardingFinish = {},
+            homeScreen = { Text("Home Screen Preview") }
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun AppNavHostLoginPreview() {
+    DigitalTokTheme {
+        AppNavHostContent(
+            navController = rememberNavController(),
+            isOnboardingDone = true,
+            onOnboardingFinish = {},
+            homeScreen = { Text("Home Screen Preview") }
+        )
     }
 }

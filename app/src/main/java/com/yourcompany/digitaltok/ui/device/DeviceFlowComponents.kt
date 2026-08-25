@@ -20,6 +20,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CheckCircle
 import com.yourcompany.digitaltok.R
 import com.yourcompany.digitaltok.ui.components.BackArrowIcon
 import com.yourcompany.digitaltok.ui.theme.*
@@ -216,9 +218,10 @@ fun DeviceSuccessContent(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Spacer(modifier = Modifier.weight(1f))
-        Image(
-            painter = painterResource(id = R.drawable.ic_blue_check_circle),
+        Icon(
+            imageVector = Icons.Default.CheckCircle,
             contentDescription = null,
+            tint = DtPointBlue,
             modifier = Modifier.size(88.dp)
         )
         Spacer(modifier = Modifier.height(32.dp))

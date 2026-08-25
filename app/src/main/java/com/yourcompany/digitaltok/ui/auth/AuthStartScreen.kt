@@ -10,6 +10,9 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -57,18 +60,14 @@ fun AuthStartScreen(
     var pwVisible by remember { mutableStateOf(false) }
     var isLoading by remember { mutableStateOf(false) }
 
-    val pretendard = FontFamily(
-        Font(R.font.pretendard_regular, FontWeight.Normal),
-        Font(R.font.pretendard_medium, FontWeight.Medium),
-        Font(R.font.pretendard_semibold, FontWeight.SemiBold),
-        Font(R.font.pretendard_bold, FontWeight.Bold)
-    )
-
-    val isLoginEnabled =
-        email.trim().isNotEmpty() &&
-                password.isNotEmpty() &&
-                Patterns.EMAIL_ADDRESS.matcher(email.trim()).matches() &&
-                !isLoading
+    val isLoginEnabled by remember(email, password, isLoading) {
+        derivedStateOf {
+            email.trim().isNotEmpty() &&
+                    password.isNotEmpty() &&
+                    Patterns.EMAIL_ADDRESS.matcher(email.trim()).matches() &&
+                    !isLoading
+        }
+    }
 
     val authRepository = remember { AuthRepository() }
     val noRippleInteraction = remember { MutableInteractionSource() }
@@ -100,7 +99,7 @@ fun AuthStartScreen(
             style = TextStyle(
                 fontSize = 36.sp,
                 lineHeight = 40.sp,
-                fontFamily = pretendard,
+                fontFamily = Pretendard,
                 fontWeight = FontWeight.Bold,
                 color = DtTextBlack11,
                 textAlign = TextAlign.Center
@@ -119,7 +118,7 @@ fun AuthStartScreen(
             style = TextStyle(
                 fontSize = 18.sp,
                 lineHeight = 20.sp,
-                fontFamily = pretendard,
+                fontFamily = Pretendard,
                 fontWeight = FontWeight.Medium,
                 color = DtTextGray50,
                 textAlign = TextAlign.Center
@@ -168,9 +167,10 @@ fun AuthStartScreen(
                 if (pwVisible) VisualTransformation.None
                 else PasswordVisualTransformation(),
             trailingIcon = {
-                Image(
-                    painter = painterResource(id = R.drawable.eye_closed),
+                Icon(
+                    imageVector = if (pwVisible) Icons.Default.Visibility else Icons.Default.VisibilityOff,
                     contentDescription = null,
+                    tint = DtTextGray3,
                     modifier = Modifier
                         .size(22.dp)
                         .clickable { pwVisible = !pwVisible }
