@@ -35,16 +35,7 @@ import coil.compose.AsyncImage
 import androidx.compose.ui.tooling.preview.Preview
 import com.yourcompany.digitaltok.R
 import com.yourcompany.digitaltok.ui.components.BackArrowIcon
-
-object DecorateColors {
-    val TextBlack = Color(0xFF121212)
-    val TextGray1 = Color(0xFFA0A0A0)
-    val TextGray2 = Color(0xFF6B6B6B)
-    val PointBlue = Color(0xFF3AADFF)
-    val LightGrayBg = Color(0xFFF4F4F4)
-    val BorderGray = Color(0xFFE0E0E0)
-    val FavoriteRed = Color(0xFFFF5252)
-}
+import com.yourcompany.digitaltok.ui.theme.*
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -59,7 +50,7 @@ fun DecorateTopAppBar(
                 text = title,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.SemiBold,
-                color = DecorateColors.TextBlack
+                color = DtTextBlack
             )
         },
         navigationIcon = {
@@ -68,7 +59,7 @@ fun DecorateTopAppBar(
                     Icon(
                         imageVector = BackArrowIcon,
                         contentDescription = "뒤로가기",
-                        tint = DecorateColors.TextBlack
+                        tint = DtTextBlack
                     )
                 }
             }
@@ -89,7 +80,7 @@ fun DecorateTabs(
             .fillMaxWidth()
             .padding(horizontal = 24.dp, vertical = 8.dp)
             .height(44.dp)
-            .background(DecorateColors.LightGrayBg, RoundedCornerShape(12.dp))
+            .background(DtLightGrayBg, RoundedCornerShape(12.dp))
             .padding(4.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -106,7 +97,7 @@ fun DecorateTabs(
                 text = "최근 사용 항목",
                 fontSize = 14.sp,
                 fontWeight = if (selectedTab == DecorateTab.RECENT) FontWeight.Bold else FontWeight.Medium,
-                color = if (selectedTab == DecorateTab.RECENT) DecorateColors.TextBlack else DecorateColors.TextGray1
+                color = if (selectedTab == DecorateTab.RECENT) DtTextBlack else DtTextGray1
             )
         }
 
@@ -123,7 +114,7 @@ fun DecorateTabs(
                 text = "템플릿 목록",
                 fontSize = 14.sp,
                 fontWeight = if (selectedTab == DecorateTab.TEMPLATE) FontWeight.Bold else FontWeight.Medium,
-                color = if (selectedTab == DecorateTab.TEMPLATE) DecorateColors.TextBlack else DecorateColors.TextGray1
+                color = if (selectedTab == DecorateTab.TEMPLATE) DtTextBlack else DtTextGray1
             )
         }
     }
@@ -171,7 +162,7 @@ fun RecentDecorateContent(
             text = "최근 사용한 사진 ($filledCount/$maxSlots)",
             fontSize = 14.sp,
             fontWeight = FontWeight.Medium,
-            color = DecorateColors.TextGray2
+            color = DtTextGray2
         )
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -215,7 +206,7 @@ fun RecentDecorateContent(
                 .fillMaxWidth()
                 .height(52.dp),
             colors = ButtonDefaults.buttonColors(
-                containerColor = DecorateColors.PointBlue
+                containerColor = DtPointBlue
             ),
             shape = RoundedCornerShape(12.dp)
         ) {
@@ -241,10 +232,10 @@ fun DecorateGridItemView(
         modifier = Modifier
             .aspectRatio(1f)
             .clip(RoundedCornerShape(12.dp))
-            .background(DecorateColors.LightGrayBg)
+            .background(DtLightGrayBg)
             .border(
                 width = if (item.isSelected) 2.dp else 1.dp,
-                color = if (item.isSelected) DecorateColors.PointBlue else DecorateColors.BorderGray,
+                color = if (item.isSelected) DtPointBlue else DtBorderGray,
                 shape = RoundedCornerShape(12.dp)
             )
             .clickable(onClick = onClick),
@@ -254,7 +245,7 @@ fun DecorateGridItemView(
             Icon(
                 imageVector = Icons.Default.Add,
                 contentDescription = "이미지 추가",
-                tint = DecorateColors.TextGray1,
+                tint = DtTextGray1,
                 modifier = Modifier.size(24.dp)
             )
         } else if (item.isEmptySlot) {
@@ -301,7 +292,7 @@ fun DecorateGridItemView(
                 Icon(
                     imageVector = if (item.isFavorite) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
                     contentDescription = "즐겨찾기",
-                    tint = if (item.isFavorite) DecorateColors.FavoriteRed else Color.White
+                    tint = if (item.isFavorite) DtFavoriteRed else Color.White
                 )
             }
         }
@@ -342,7 +333,7 @@ fun SeatListContent(
             text = "교통약자 좌석 템플릿",
             fontSize = 14.sp,
             fontWeight = FontWeight.Medium,
-            color = DecorateColors.TextGray2
+            color = DtTextGray2
         )
         Spacer(modifier = Modifier.height(12.dp))
 
@@ -375,17 +366,17 @@ fun StationListContent(
         OutlinedTextField(
             value = searchQuery,
             onValueChange = onSearchQueryChange,
-            placeholder = { Text("더 많은 역을 검색해 보세요", fontSize = 14.sp, color = DecorateColors.TextGray1) },
+            placeholder = { Text("더 많은 역을 검색해 보세요", fontSize = 14.sp, color = DtTextGray1) },
             leadingIcon = {
-                Icon(Icons.Default.Search, contentDescription = "검색", tint = DecorateColors.TextGray1)
+                Icon(Icons.Default.Search, contentDescription = "검색", tint = DtTextGray1)
             },
             singleLine = true,
             shape = RoundedCornerShape(12.dp),
             colors = OutlinedTextFieldDefaults.colors(
-                focusedBorderColor = DecorateColors.PointBlue,
-                unfocusedBorderColor = DecorateColors.BorderGray,
-                focusedContainerColor = DecorateColors.LightGrayBg,
-                unfocusedContainerColor = DecorateColors.LightGrayBg
+                focusedBorderColor = DtPointBlue,
+                unfocusedBorderColor = DtBorderGray,
+                focusedContainerColor = DtLightGrayBg,
+                unfocusedContainerColor = DtLightGrayBg
             ),
             modifier = Modifier.fillMaxWidth()
         )
@@ -396,7 +387,7 @@ fun StationListContent(
             text = "역명과 노선 색상이 포함된 템플릿",
             fontSize = 14.sp,
             fontWeight = FontWeight.Medium,
-            color = DecorateColors.TextGray2
+            color = DtTextGray2
         )
 
         Spacer(modifier = Modifier.height(12.dp))
@@ -421,7 +412,7 @@ fun TemplateItemRow(
         modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(12.dp))
-            .background(DecorateColors.LightGrayBg)
+            .background(DtLightGrayBg)
             .clickable(onClick = onClick)
             .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically
@@ -464,14 +455,14 @@ fun TemplateItemRow(
                 text = item.title,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Bold,
-                color = DecorateColors.TextBlack
+                color = DtTextBlack
             )
             if (item.desc.isNotEmpty()) {
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
                     text = item.desc,
                     fontSize = 13.sp,
-                    color = DecorateColors.TextGray2
+                    color = DtTextGray2
                 )
             }
         }

@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.yourcompany.digitaltok.R
 import com.yourcompany.digitaltok.data.repository.AuthRepository
+import com.yourcompany.digitaltok.ui.theme.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -75,7 +76,7 @@ fun AuthStartScreen(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .background(Color.White)
+            .background(DtWhite)
             .padding(horizontal = 24.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
@@ -101,7 +102,7 @@ fun AuthStartScreen(
                 lineHeight = 40.sp,
                 fontFamily = pretendard,
                 fontWeight = FontWeight.Bold,
-                color = Color(0xFF111111),
+                color = DtTextBlack11,
                 textAlign = TextAlign.Center
             ),
             modifier = Modifier
@@ -120,7 +121,7 @@ fun AuthStartScreen(
                 lineHeight = 20.sp,
                 fontFamily = pretendard,
                 fontWeight = FontWeight.Medium,
-                color = Color(0xFF505050),
+                color = DtTextGray50,
                 textAlign = TextAlign.Center
             ),
             modifier = Modifier
@@ -143,8 +144,8 @@ fun AuthStartScreen(
             singleLine = true,
             shape = RoundedCornerShape(10.dp),
             colors = TextFieldDefaults.colors(
-                focusedContainerColor = Color(0xFFF4F4F4),
-                unfocusedContainerColor = Color(0xFFF4F4F4),
+                focusedContainerColor = DtLightGrayBg,
+                unfocusedContainerColor = DtLightGrayBg,
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent,
             )
@@ -176,8 +177,8 @@ fun AuthStartScreen(
                 )
             },
             colors = TextFieldDefaults.colors(
-                focusedContainerColor = Color(0xFFF4F4F4),
-                unfocusedContainerColor = Color(0xFFF4F4F4),
+                focusedContainerColor = DtLightGrayBg,
+                unfocusedContainerColor = DtLightGrayBg,
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent,
             )
@@ -230,8 +231,8 @@ fun AuthStartScreen(
                 .height(52.dp),
             shape = RoundedCornerShape(10.dp),
             colors = ButtonDefaults.buttonColors(
-                containerColor = if (isLoginEnabled) Color(0xFF36ABFF) else Color(0xFFE9E9E9),
-                contentColor = if (isLoginEnabled) Color.White else Color.Gray
+                containerColor = if (isLoginEnabled) DtMain100 else DtBorderGray,
+                contentColor = if (isLoginEnabled) DtWhite else DtTextGray1
             )
         ) {
             Text(if (isLoading) "로그인 중..." else "로그인")
@@ -245,17 +246,17 @@ fun AuthStartScreen(
                 .fillMaxWidth()
                 .height(48.dp),
             shape = RoundedCornerShape(10.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF111111))
+            colors = ButtonDefaults.buttonColors(containerColor = DtTextBlack11)
         ) {
-            Text("회원가입", color = Color.White)
+            Text("회원가입", color = DtWhite)
         }
 
-        Spacer(Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(12.dp))
 
         Text(
             text = "비밀번호를 잊으셨나요?",
             fontSize = 12.sp,
-            color = Color(0xFF767676),
+            color = DtTextGray3,
             modifier = Modifier.clickable(
                 interactionSource = noRippleInteraction,
                 indication = null

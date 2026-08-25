@@ -10,6 +10,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import com.yourcompany.digitaltok.ui.theme.*
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -42,8 +43,8 @@ fun ImagePickerBottomSheetContent(
     onCameraClick: () -> Unit,
     onGalleryClick: () -> Unit
 ) {
-    val main100Color = Color(0xFF36ABFF)
-    val defaultGrayColor = Color(0xFFE0E0E0)
+    val main100Color = DtMain100
+    val defaultGrayColor = DtBorderGray
 
     Column(
         modifier = Modifier
@@ -57,7 +58,7 @@ fun ImagePickerBottomSheetContent(
                 .fillMaxWidth()
                 .padding(horizontal = 18.dp),
             shape = RoundedCornerShape(6.dp),
-            color = Color.White,
+            color = DtWhite,
             shadowElevation = 0.dp
         ) {
             Column(
@@ -143,7 +144,7 @@ fun ImagePickerBottomSheetContent(
                     text = "돌아가기",
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Medium,
-                    color = Color.White
+                    color = DtWhite
                 )
             }
         }

@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.yourcompany.digitaltok.R
+import com.yourcompany.digitaltok.ui.theme.*
 
 sealed class TransferDialogState {
     object Transferring : TransferDialogState()
@@ -76,7 +77,7 @@ private fun TransferringContent() {
     ) {
         CircularProgressIndicator(
             modifier = Modifier.size(64.dp),
-            color = DecorateColors.PointBlue,
+            color = DtPointBlue,
             strokeWidth = 4.dp
         )
 
@@ -86,7 +87,7 @@ private fun TransferringContent() {
             text = "전송 중",
             fontSize = 22.sp,
             fontWeight = FontWeight.Bold,
-            color = DecorateColors.TextBlack
+            color = DtTextBlack
         )
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -94,7 +95,7 @@ private fun TransferringContent() {
         Text(
             text = "디링을 핸드폰 NFC 센서에 밀착시켜 주세요",
             fontSize = 15.sp,
-            color = DecorateColors.TextGray2,
+            color = DtTextGray2,
             textAlign = TextAlign.Center
         )
     }
@@ -111,7 +112,7 @@ private fun SuccessContent() {
         Icon(
             imageVector = Icons.Default.CheckCircle,
             contentDescription = "전송 완료",
-            tint = DecorateColors.PointBlue,
+            tint = DtPointBlue,
             modifier = Modifier.size(64.dp)
         )
 
@@ -121,7 +122,7 @@ private fun SuccessContent() {
             text = "전송 완료",
             fontSize = 22.sp,
             fontWeight = FontWeight.Bold,
-            color = DecorateColors.TextBlack
+            color = DtTextBlack
         )
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -129,7 +130,7 @@ private fun SuccessContent() {
         Text(
             text = "성공적으로 이미지가 전송되었습니다",
             fontSize = 15.sp,
-            color = DecorateColors.TextGray2,
+            color = DtTextGray2,
             textAlign = TextAlign.Center
         )
     }
@@ -141,8 +142,8 @@ private fun FailContent(
     onRetryClick: () -> Unit,
     onSupportClick: () -> Unit
 ) {
-    val errorColor = Color(0xFFFF5252)
-    val warningBoxBg = Color(0xFFFFF0F0)
+    val errorColor = DtFavoriteRed
+    val warningBoxBg = DtWithdrawBg
 
     Column(
         modifier = Modifier
@@ -171,7 +172,7 @@ private fun FailContent(
         Text(
             text = message ?: "이미지 전송에 실패했습니다",
             fontSize = 15.sp,
-            color = DecorateColors.TextGray2,
+            color = DtTextGray2,
             textAlign = TextAlign.Center
         )
 
@@ -228,7 +229,7 @@ private fun FailContent(
                 .fillMaxWidth()
                 .height(50.dp),
             colors = ButtonDefaults.buttonColors(
-                containerColor = DecorateColors.PointBlue
+                containerColor = DtPointBlue
             ),
             shape = RoundedCornerShape(10.dp)
         ) {
@@ -248,14 +249,14 @@ private fun FailContent(
                 .fillMaxWidth()
                 .height(50.dp),
             colors = ButtonDefaults.outlinedButtonColors(
-                contentColor = DecorateColors.TextGray2
+                contentColor = DtTextGray2
             ),
             shape = RoundedCornerShape(10.dp)
         ) {
             Text(
                 text = "고객 지원 문의하기",
                 fontSize = 15.sp,
-                color = DecorateColors.TextGray2
+                color = DtTextGray2
             )
         }
     }

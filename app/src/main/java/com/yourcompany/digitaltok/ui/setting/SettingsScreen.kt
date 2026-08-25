@@ -48,21 +48,11 @@ import com.yourcompany.digitaltok.ui.components.BackArrowIcon
 import com.yourcompany.digitaltok.ui.components.ChangeEmailDialogContent
 import com.yourcompany.digitaltok.ui.components.LogoutDialogContent
 import com.yourcompany.digitaltok.ui.components.WithdrawDialogContent
+import com.yourcompany.digitaltok.ui.theme.*
 import kotlinx.coroutines.launch
 
 enum class SettingsSubScreen {
     MAIN, PROFILE_EDIT, FAQ, SUPPORT
-}
-
-private object SettingsColors {
-    val PointBlue = Color(0xFF36ABFF)
-    val TextBlack = Color(0xFF121212)
-    val TextGray = Color(0xFF767676)
-    val TextGrayTitle = Color(0xFFA0A0A0)
-    val TextRed = Color(0xFFFF5252)
-    val LightBg = Color(0xFFF4F4F4)
-    val CardBg = Color(0xFFF4F4F4)
-    val DividerGray = Color(0xFFEEEEEE)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -139,7 +129,7 @@ fun SettingsScreen(
                         text = topBarTitle,
                         fontSize = 18.sp,
                         fontWeight = FontWeight.SemiBold,
-                        color = SettingsColors.TextBlack
+                        color = DtTextBlack
                     )
                 },
                 navigationIcon = {
@@ -148,7 +138,7 @@ fun SettingsScreen(
                             Icon(
                                 imageVector = BackArrowIcon,
                                 contentDescription = "뒤로가기",
-                                tint = SettingsColors.TextBlack
+                                tint = DtTextBlack
                             )
                         }
                     }
@@ -158,13 +148,13 @@ fun SettingsScreen(
                 )
             )
         },
-        containerColor = if (subScreen == SettingsSubScreen.SUPPORT) Color.White else SettingsColors.LightBg
+        containerColor = if (subScreen == SettingsSubScreen.SUPPORT) Color.White else DtLightGrayBg
     ) { innerPadding ->
         Box(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(top = innerPadding.calculateTopPadding())
-                .background(if (subScreen == SettingsSubScreen.SUPPORT) Color.White else SettingsColors.LightBg)
+                .background(if (subScreen == SettingsSubScreen.SUPPORT) Color.White else DtLightGrayBg)
         ) {
             when (subScreen) {
                 SettingsSubScreen.MAIN -> SettingsMainContent(
@@ -208,7 +198,7 @@ private fun SettingsMainContent(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(SettingsColors.LightBg)
+            .background(DtLightGrayBg)
     ) {
         // ------------------ 섹션 1) 프로필 카드 (bannerProfile) ------------------
         Surface(
@@ -252,14 +242,14 @@ private fun SettingsMainContent(
                             text = displayName,
                             fontSize = 18.sp,
                             fontWeight = FontWeight.SemiBold,
-                            color = SettingsColors.TextBlack
+                            color = DtTextBlack
                         )
                         Spacer(modifier = Modifier.height(4.dp))
                         Text(
                             text = displayEmail,
                             fontSize = 12.sp,
                             fontWeight = FontWeight.Medium,
-                            color = SettingsColors.TextGray
+                            color = DtTextGray3
                         )
                     }
                 }
@@ -273,7 +263,7 @@ private fun SettingsMainContent(
                         .fillMaxWidth()
                         .height(48.dp),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = SettingsColors.PointBlue
+                        containerColor = DtPointBlue
                     ),
                     shape = RoundedCornerShape(8.dp)
                 ) {
@@ -301,7 +291,7 @@ private fun SettingsMainContent(
                     text = "도움말",
                     fontSize = 14.sp,
                     fontWeight = FontWeight.SemiBold,
-                    color = SettingsColors.TextGrayTitle
+                    color = DtTextGray1
                 )
 
                 Spacer(modifier = Modifier.height(25.dp))
@@ -318,12 +308,12 @@ private fun SettingsMainContent(
                         text = "자주 묻는 질문",
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Medium,
-                        color = SettingsColors.TextBlack
+                        color = DtTextBlack
                     )
                     Icon(
                         imageVector = Icons.Default.ChevronRight,
                         contentDescription = null,
-                        tint = SettingsColors.TextGrayTitle,
+                        tint = DtTextGray1,
                         modifier = Modifier.size(20.dp)
                     )
                 }
@@ -342,12 +332,12 @@ private fun SettingsMainContent(
                         text = "고객 지원",
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Medium,
-                        color = SettingsColors.TextBlack
+                        color = DtTextBlack
                     )
                     Icon(
                         imageVector = Icons.Default.ChevronRight,
                         contentDescription = null,
-                        tint = SettingsColors.TextGrayTitle,
+                        tint = DtTextGray1,
                         modifier = Modifier.size(20.dp)
                     )
                 }
@@ -368,7 +358,7 @@ private fun SettingsMainContent(
                     text = "정보",
                     fontSize = 14.sp,
                     fontWeight = FontWeight.SemiBold,
-                    color = SettingsColors.TextGrayTitle
+                    color = DtTextGray1
                 )
 
                 Spacer(modifier = Modifier.height(25.dp))
@@ -383,13 +373,13 @@ private fun SettingsMainContent(
                         text = "앱 버전",
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Medium,
-                        color = SettingsColors.TextBlack
+                        color = DtTextBlack
                     )
                     Text(
                         text = "DT v 1.12.6",
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Normal,
-                        color = SettingsColors.TextGrayTitle
+                        color = DtTextGray1
                     )
                 }
             }
@@ -419,7 +409,7 @@ private fun ProfileEditContent(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(SettingsColors.LightBg)
+            .background(DtLightGrayBg)
     ) {
         // ------------------ 섹션 1) 프로필 / 이름 (sectionProfile) ------------------
         Surface(
@@ -456,14 +446,14 @@ private fun ProfileEditContent(
                             text = "이름",
                             fontSize = 12.sp,
                             fontWeight = FontWeight.Medium,
-                            color = SettingsColors.TextGray
+                            color = DtTextGray3
                         )
                         Spacer(modifier = Modifier.height(4.dp))
                         Text(
                             text = if (nickname.isNotBlank()) nickname else "정재원",
                             fontSize = 18.sp,
                             fontWeight = FontWeight.Bold,
-                            color = SettingsColors.TextBlack
+                            color = DtTextBlack
                         )
                     }
                 }
@@ -474,14 +464,14 @@ private fun ProfileEditContent(
                 Surface(
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(8.dp),
-                    color = Color(0xFFEFF6FF),
-                    border = BorderStroke(1.dp, Color(0xFF36ABFF).copy(alpha = 0.3f))
+                    color = DtInfoSolid,
+                    border = BorderStroke(1.dp, DtMain100.copy(alpha = 0.3f))
                 ) {
                     Text(
                         text = "이름은 자동생성되며, 이메일은 로그인 및 알림 수신에 사용됩니다.",
                         fontSize = 12.sp,
                         fontWeight = FontWeight.Medium,
-                        color = SettingsColors.PointBlue,
+                        color = DtPointBlue,
                         textAlign = TextAlign.Center,
                         modifier = Modifier
                             .fillMaxWidth()
@@ -505,7 +495,7 @@ private fun ProfileEditContent(
                     text = "이메일",
                     fontSize = 14.sp,
                     fontWeight = FontWeight.SemiBold,
-                    color = SettingsColors.TextGrayTitle
+                    color = DtTextGray1
                 )
 
                 Spacer(modifier = Modifier.height(19.dp))
@@ -516,7 +506,7 @@ private fun ProfileEditContent(
                         .fillMaxWidth()
                         .height(50.dp),
                     shape = RoundedCornerShape(8.dp),
-                    color = SettingsColors.CardBg
+                    color = DtLightGrayBg
                 ) {
                     Row(
                         modifier = Modifier
@@ -529,7 +519,7 @@ private fun ProfileEditContent(
                             text = if (email.isNotBlank()) email else "jaewon12@gmail.com",
                             fontSize = 13.sp,
                             fontWeight = FontWeight.Medium,
-                            color = SettingsColors.TextGray
+                            color = DtTextGray3
                         )
                         // 원본 edit_image 드로어블 사용
                         Image(
@@ -558,7 +548,7 @@ private fun ProfileEditContent(
                     text = "계정관리",
                     fontSize = 14.sp,
                     fontWeight = FontWeight.SemiBold,
-                    color = SettingsColors.TextGrayTitle
+                    color = DtTextGray1
                 )
 
                 Spacer(modifier = Modifier.height(25.dp))
@@ -575,12 +565,12 @@ private fun ProfileEditContent(
                         text = "로그아웃",
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Medium,
-                        color = Color(0xFFFF5252)
+                        color = DtFavoriteRed
                     )
                     Icon(
                         imageVector = Icons.Default.ChevronRight,
                         contentDescription = null,
-                        tint = Color(0xFFFF5252),
+                        tint = DtFavoriteRed,
                         modifier = Modifier.size(20.dp)
                     )
                 }
@@ -599,12 +589,12 @@ private fun ProfileEditContent(
                         text = "회원 탈퇴",
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Medium,
-                        color = SettingsColors.TextBlack
+                        color = DtTextBlack
                     )
                     Icon(
                         imageVector = Icons.Default.ChevronRight,
                         contentDescription = null,
-                        tint = SettingsColors.TextGrayTitle,
+                        tint = DtTextGray1,
                         modifier = Modifier.size(20.dp)
                     )
                 }
@@ -727,7 +717,7 @@ private fun FaqContent(
                 .fillMaxWidth()
                 .height(52.dp),
             colors = ButtonDefaults.buttonColors(
-                containerColor = SettingsColors.PointBlue
+                containerColor = DtPointBlue
             ),
             shape = RoundedCornerShape(12.dp)
         ) {
@@ -752,7 +742,7 @@ private fun FaqItemRow(item: FaqItem) {
             .fillMaxWidth()
             .clickable { expanded = !expanded },
         shape = RoundedCornerShape(12.dp),
-        color = Color(0xFFF8F9FA)
+        color = DtLightGrayBg
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Row(
@@ -764,13 +754,13 @@ private fun FaqItemRow(item: FaqItem) {
                     text = item.question,
                     fontSize = 15.sp,
                     fontWeight = FontWeight.SemiBold,
-                    color = SettingsColors.TextBlack,
+                    color = DtTextBlack,
                     modifier = Modifier.weight(1f)
                 )
                 Icon(
                     imageVector = if (expanded) Icons.Default.ExpandLess else Icons.Default.ExpandMore,
                     contentDescription = null,
-                    tint = SettingsColors.TextGray
+                    tint = DtTextGray3
                 )
             }
 
@@ -781,12 +771,12 @@ private fun FaqItemRow(item: FaqItem) {
             ) {
                 Column {
                     Spacer(modifier = Modifier.height(12.dp))
-                    HorizontalDivider(color = SettingsColors.DividerGray)
+                    HorizontalDivider(color = DtBorderGray)
                     Spacer(modifier = Modifier.height(12.dp))
                     Text(
                         text = item.answer,
                         fontSize = 14.sp,
-                        color = SettingsColors.TextGray,
+                        color = DtTextGray3,
                         lineHeight = 20.sp
                     )
                 }
@@ -822,7 +812,7 @@ private fun SupportContent() {
             text = "무엇을 도와드릴까요?",
             fontSize = 22.sp,
             fontWeight = FontWeight.SemiBold,
-            color = SettingsColors.TextBlack
+            color = DtTextBlack
         )
 
         Spacer(modifier = Modifier.height(18.dp))
@@ -832,7 +822,7 @@ private fun SupportContent() {
             text = "친절한 고객 지원팀이 도와\n드리겠습니다",
             fontSize = 14.sp,
             fontWeight = FontWeight.Medium,
-            color = SettingsColors.TextGray,
+            color = DtTextGray3,
             textAlign = TextAlign.Center,
             lineHeight = 20.sp
         )
@@ -844,7 +834,7 @@ private fun SupportContent() {
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(12.dp),
             color = Color.White,
-            border = BorderStroke(1.dp, Color(0xFFEEEEEE))
+            border = BorderStroke(1.dp, DtBorderGray)
         ) {
             Row(
                 modifier = Modifier
@@ -866,14 +856,14 @@ private fun SupportContent() {
                         text = "이메일",
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Medium,
-                        color = Color(0xFF0A0A0A)
+                        color = DtTextBlack
                     )
                     Spacer(modifier = Modifier.height(4.dp))
                     Text(
                         text = "support@diring.com",
                         fontSize = 12.sp,
                         fontWeight = FontWeight.Medium,
-                        color = SettingsColors.TextGray
+                        color = DtTextGray3
                     )
                 }
             }
@@ -886,7 +876,7 @@ private fun SupportContent() {
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(12.dp),
             color = Color.White,
-            border = BorderStroke(1.dp, Color(0xFFEEEEEE))
+            border = BorderStroke(1.dp, DtBorderGray)
         ) {
             Row(
                 modifier = Modifier
@@ -908,14 +898,14 @@ private fun SupportContent() {
                         text = "카카오톡",
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Medium,
-                        color = Color(0xFF0A0A0A)
+                        color = DtTextBlack
                     )
                     Spacer(modifier = Modifier.height(4.dp))
                     Text(
                         text = "@DiRing",
                         fontSize = 12.sp,
                         fontWeight = FontWeight.Medium,
-                        color = SettingsColors.TextGray
+                        color = DtTextGray3
                     )
                 }
             }

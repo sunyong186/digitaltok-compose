@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import com.yourcompany.digitaltok.ui.theme.*
 import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
@@ -115,7 +116,7 @@ fun OnboardingScreen(
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(Color.White)
+            .background(DtWhite)
     ) {
         HorizontalPager(
             state = pagerState,
@@ -127,7 +128,7 @@ fun OnboardingScreen(
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(Color.White)
+                    .background(DtWhite)
                     .padding(horizontal = 24.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
@@ -139,7 +140,7 @@ fun OnboardingScreen(
                         fontSize = 24.sp,
                         lineHeight = 31.2.sp,
                         fontWeight = FontWeight.SemiBold,
-                        color = Color(0xFF121212),
+                        color = DtTextBlack,
                         textAlign = TextAlign.Center
                     ),
                     modifier = Modifier.fillMaxWidth(),
@@ -154,7 +155,7 @@ fun OnboardingScreen(
                         fontSize = 14.sp,
                         lineHeight = 19.6.sp,
                         fontWeight = FontWeight.Medium,
-                        color = Color(0xFF505050),
+                        color = DtTextGray50,
                         textAlign = TextAlign.Center
                     ),
                     modifier = Modifier.fillMaxWidth(),
@@ -210,8 +211,8 @@ fun OnboardingScreen(
                 ) {
                     OnboardingButton(
                         text = "이전으로",
-                        containerColor = Color(0xFFE0E0E0),
-                        textColor = Color(0xFF9E9E9E),
+                        containerColor = DtLightGrayBg,
+                        textColor = DtTextGray1,
                         enabled = pageIndex != 0 || (isStationPage && currentStationIndex > 0),
                         modifier = Modifier.weight(1f)
                     ) {
@@ -226,8 +227,8 @@ fun OnboardingScreen(
 
                     OnboardingButton(
                         text = "다음으로",
-                        containerColor = Color(0xFF36ABFF),
-                        textColor = Color.White,
+                        containerColor = DtMain100,
+                        textColor = DtWhite,
                         enabled = true,
                         modifier = Modifier.weight(1f)
                     ) {

@@ -22,6 +22,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
+import com.yourcompany.digitaltok.ui.theme.*
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
@@ -42,7 +43,7 @@ fun CropScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Black)
+            .background(DtBlack)
     ) {
         // Top Header
         Row(
@@ -55,7 +56,7 @@ fun CropScreen(
                 text = "이미지 자르기",
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
-                color = Color.White
+                color = DtWhite
             )
         }
 
@@ -130,7 +131,7 @@ fun CropScreen(
                     .weight(1f)
                     .height(52.dp),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFF333333)
+                    containerColor = DtTextBlack
                 ),
                 shape = RoundedCornerShape(12.dp)
             ) {
@@ -159,7 +160,7 @@ fun CropScreen(
                     .weight(1f)
                     .height(52.dp),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = DecorateColors.PointBlue
+                    containerColor = DtPointBlue
                 ),
                 shape = RoundedCornerShape(12.dp)
             ) {

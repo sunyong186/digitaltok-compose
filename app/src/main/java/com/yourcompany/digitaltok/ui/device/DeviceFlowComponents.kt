@@ -22,16 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.yourcompany.digitaltok.R
 import com.yourcompany.digitaltok.ui.components.BackArrowIcon
-
-private object FlowColors {
-    val TextBlack = Color(0xFF121212)
-    val TextGray1 = Color(0xFFA0A0A0)
-    val TextGray2 = Color(0xFF6B6B6B)
-    val Main100 = Color(0xFF3AADFF)
-    val Error = Color(0xFFFF5252)
-    val Gray6A = Color(0xFF6A6A6A)
-    val Gray4A = Color(0xFF4A4A4A)
-}
+import com.yourcompany.digitaltok.ui.theme.*
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -42,7 +33,7 @@ fun FlowTopAppBar(title: String, onBackClick: () -> Unit) {
                 text = title,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.SemiBold,
-                color = FlowColors.TextBlack
+                color = DtTextBlack
             )
         },
         navigationIcon = {
@@ -50,12 +41,12 @@ fun FlowTopAppBar(title: String, onBackClick: () -> Unit) {
                 Icon(
                     imageVector = BackArrowIcon,
                     contentDescription = "Back",
-                    tint = FlowColors.TextBlack
+                    tint = DtTextBlack
                 )
             }
         },
         colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-            containerColor = Color.White
+            containerColor = DtWhite
         )
     )
 }
@@ -68,7 +59,7 @@ fun DeviceConnectContent(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White)
+            .background(DtWhite)
     ) {
         FlowTopAppBar(title = "기기연결", onBackClick = onBackClick)
 
@@ -91,14 +82,14 @@ fun DeviceConnectContent(
                 text = "DiRing 연결",
                 fontSize = 22.sp,
                 fontWeight = FontWeight.SemiBold,
-                color = FlowColors.TextBlack
+                color = DtTextBlack
             )
             Spacer(modifier = Modifier.height(14.dp))
             Text(
                 text = "NFC를 통해 전자 잉크 디링을 연결하세요",
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Medium,
-                color = FlowColors.TextGray2
+                color = DtTextGray2
             )
             Spacer(modifier = Modifier.height(36.dp))
             Button(
@@ -108,8 +99,8 @@ fun DeviceConnectContent(
                     .padding(horizontal = 24.dp)
                     .height(56.dp),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = FlowColors.Main100,
-                    contentColor = Color.White
+                    containerColor = DtPointBlue,
+                    contentColor = DtWhite
                 ),
                 shape = RoundedCornerShape(12.dp)
             ) {
@@ -123,7 +114,7 @@ fun DeviceConnectContent(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(
-                    color = Color(0xFFF7F8FA),
+                    color = DtLightGrayBg,
                     shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp)
                 )
                 .padding(horizontal = 35.dp, vertical = 30.dp)
@@ -136,9 +127,9 @@ fun DeviceConnectContent(
                 )
                 Spacer(modifier = Modifier.width(16.dp))
                 Column {
-                    Text("NFC 활성화 확인", fontSize = 16.sp, fontWeight = FontWeight.Medium, color = Color.Black)
-                    Spacer(modifier = Modifier.height(4.dp))
-                    Text("설정 > 연결에서 NFC가 켜져있는지 확인하세요", fontSize = 14.sp, color = FlowColors.Gray6A)
+                    Text("NFC 활성화 확인", fontSize = 16.sp, fontWeight = FontWeight.Medium, color = DtTextBlack)
+                    Spacer(Modifier.height(4.dp))
+                    Text("설정 > 연결에서 NFC가 켜져있는지 확인하세요", fontSize = 14.sp, color = DtTextGray2)
                 }
             }
             Spacer(modifier = Modifier.height(20.dp))
@@ -150,9 +141,9 @@ fun DeviceConnectContent(
                 )
                 Spacer(modifier = Modifier.width(16.dp))
                 Column {
-                    Text("올바른 위치", fontSize = 16.sp, fontWeight = FontWeight.Medium, color = Color.Black)
-                    Spacer(modifier = Modifier.height(4.dp))
-                    Text("휴대폰 뒷면을 그립톡 중앙에 가까이 대주세요", fontSize = 14.sp, color = FlowColors.Gray6A)
+                    Text("올바른 위치", fontSize = 16.sp, fontWeight = FontWeight.Medium, color = DtTextBlack)
+                    Spacer(Modifier.height(4.dp))
+                    Text("휴대폰 뒷면을 그립톡 중앙에 가까이 대주세요", fontSize = 14.sp, color = DtTextGray2)
                 }
             }
         }
@@ -167,7 +158,7 @@ fun DeviceSearchingContent(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White)
+            .background(DtWhite)
             .clickable(
                 interactionSource = remember { MutableInteractionSource() },
                 indication = null
@@ -185,11 +176,11 @@ fun DeviceSearchingContent(
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Box(modifier = Modifier.size(25.dp).background(Color(0xFF767676), CircleShape))
+            Box(modifier = Modifier.size(25.dp).background(DtTextGray3, CircleShape))
             Spacer(modifier = Modifier.width(19.dp))
-            Box(modifier = Modifier.size(25.dp).background(Color(0xFF767676), CircleShape))
+            Box(modifier = Modifier.size(25.dp).background(DtTextGray3, CircleShape))
             Spacer(modifier = Modifier.width(19.dp))
-            Box(modifier = Modifier.size(25.dp).background(Color(0xFF767676), CircleShape))
+            Box(modifier = Modifier.size(25.dp).background(DtTextGray3, CircleShape))
         }
 
         Spacer(modifier = Modifier.height(32.dp))
@@ -197,14 +188,14 @@ fun DeviceSearchingContent(
             text = "연결 중..",
             fontSize = 26.sp,
             fontWeight = FontWeight.SemiBold,
-            color = FlowColors.TextGray1
+            color = DtTextGray1
         )
         Spacer(modifier = Modifier.height(14.dp))
         Text(
             text = "휴대폰을 디링에\n연결 중 입니다",
             fontSize = 18.sp,
             fontWeight = FontWeight.Medium,
-            color = FlowColors.TextGray2,
+            color = DtTextGray2,
             textAlign = TextAlign.Center
         )
         Spacer(modifier = Modifier.weight(1.5f))
@@ -219,7 +210,7 @@ fun DeviceSuccessContent(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White)
+            .background(DtWhite)
             .padding(horizontal = 24.dp)
             .statusBarsPadding(),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -235,14 +226,14 @@ fun DeviceSuccessContent(
             text = "연결 성공",
             fontSize = 26.sp,
             fontWeight = FontWeight.SemiBold,
-            color = FlowColors.Main100
+            color = DtPointBlue
         )
         Spacer(modifier = Modifier.height(14.dp))
         Text(
             text = "디링이 성공적으로\n연결되었습니다",
             fontSize = 18.sp,
             fontWeight = FontWeight.Medium,
-            color = FlowColors.Gray4A,
+            color = DtTextGray50,
             textAlign = TextAlign.Center
         )
 
@@ -251,19 +242,21 @@ fun DeviceSuccessContent(
         Button(
             onClick = onNavigateToDecorate,
             modifier = Modifier.fillMaxWidth().height(56.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = FlowColors.Main100),
+            colors = ButtonDefaults.buttonColors(containerColor = DtPointBlue),
             shape = RoundedCornerShape(12.dp)
         ) {
-            Text("이미지 or 템플릿 추가하기", fontSize = 16.sp, fontWeight = FontWeight.Medium, color = Color.White)
+            Text("이미지 or 템플릿 추가하기", fontSize = 16.sp, fontWeight = FontWeight.Medium, color = DtWhite)
         }
-        Spacer(modifier = Modifier.height(10.dp))
+
+        Spacer(Modifier.height(12.dp))
+
         Button(
             onClick = onNavigateToHome,
-            modifier = Modifier.fillMaxWidth().height(56.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF4F4F4)),
+            modifier = Modifier.fillMaxWidth().height(52.dp),
+            colors = ButtonDefaults.buttonColors(containerColor = DtLightGrayBg),
             shape = RoundedCornerShape(12.dp)
         ) {
-            Text("홈으로 돌아가기", fontSize = 16.sp, fontWeight = FontWeight.Medium, color = FlowColors.TextGray2)
+            Text("홈으로 돌아가기", fontSize = 16.sp, fontWeight = FontWeight.Medium, color = DtTextGray2)
         }
         Spacer(modifier = Modifier.height(20.dp))
     }
@@ -278,7 +271,7 @@ fun DeviceFailureContent(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White)
+            .background(DtWhite)
     ) {
         FlowTopAppBar(title = "", onBackClick = onBackClick)
 
@@ -299,13 +292,13 @@ fun DeviceFailureContent(
                 text = "연결 실패",
                 fontSize = 26.sp,
                 fontWeight = FontWeight.SemiBold,
-                color = FlowColors.Error
+                color = DtFavoriteRed
             )
             Spacer(modifier = Modifier.height(11.dp))
             Text(
                 text = "기기를 찾을 수\n없습니다",
                 fontSize = 18.sp,
-                color = FlowColors.TextGray2,
+                color = DtTextGray2,
                 textAlign = TextAlign.Center
             )
 
@@ -313,7 +306,7 @@ fun DeviceFailureContent(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(Color(0xFFF9F9F9), RoundedCornerShape(12.dp))
+                    .background(DtLightGrayBg, RoundedCornerShape(12.dp))
                     .padding(20.dp)
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
@@ -323,13 +316,13 @@ fun DeviceFailureContent(
                         modifier = Modifier.size(18.dp)
                     )
                     Spacer(modifier = Modifier.width(8.dp))
-                    Text("해결 방법", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = FlowColors.TextGray1)
+                    Text("해결 방법", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = DtTextGray1)
                 }
                 Spacer(modifier = Modifier.height(14.dp))
                 Text(
                     text = "•  NFC 기능이 활성화되어 있는지 확인하세요\n•  휴대폰 케이스를 제거하고 다시 시도하세요\n•  디링을 휴대폰 뒷면 중앙에 가까이 대세요",
                     fontSize = 14.sp,
-                    color = FlowColors.TextGray2,
+                    color = DtTextGray2,
                     lineHeight = 22.sp
                 )
             }
@@ -339,19 +332,21 @@ fun DeviceFailureContent(
             Button(
                 onClick = onRetryClick,
                 modifier = Modifier.fillMaxWidth().height(56.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = FlowColors.Main100),
+                colors = ButtonDefaults.buttonColors(containerColor = DtPointBlue),
                 shape = RoundedCornerShape(12.dp)
             ) {
-                Text("다시 시도", fontSize = 16.sp, color = Color.White)
+                Text("다시 시도", fontSize = 16.sp, color = DtWhite)
             }
-            Spacer(modifier = Modifier.height(8.dp))
+
+            Spacer(Modifier.height(12.dp))
+
             Button(
                 onClick = onNavigateToHelp,
-                modifier = Modifier.fillMaxWidth().height(56.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF4F4F4)),
+                modifier = Modifier.fillMaxWidth().height(52.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = DtLightGrayBg),
                 shape = RoundedCornerShape(12.dp)
             ) {
-                Text("고객지원 문의하기", fontSize = 16.sp, color = FlowColors.TextGray2)
+                Text("고객지원 문의하기", fontSize = 16.sp, color = DtTextGray2)
             }
             Spacer(modifier = Modifier.height(20.dp))
         }
